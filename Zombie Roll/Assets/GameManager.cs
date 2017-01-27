@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    private int score = 0;
+    public Text scoreText;
     private int selectedZombiePosition = 0;
     public GameObject selectedZombie;
     public List<GameObject> zombies;
@@ -14,6 +17,7 @@ public class GameManager : MonoBehaviour
     void Start ()
     {
         SelectZombie(selectedZombie);
+        scoreText.text = "Score: " + score;
     }
 
     // Update is called once per frame
@@ -76,5 +80,11 @@ public class GameManager : MonoBehaviour
         selectedZombie.transform.localScale = defaultSize;
         selectedZombie = newZombie;
         selectedZombie.transform.localScale = selectedSize;
+    }
+
+    public void AddPoint()
+    {
+        score = score + 1;
+        scoreText.text = "Score: " + score;
     }
 }
