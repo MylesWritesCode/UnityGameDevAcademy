@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
     private int selectedZombiePosition = 0;
     public GameObject selectedZombie;
     public List<GameObject> zombies;
@@ -12,13 +11,13 @@ public class GameManager : MonoBehaviour
     public Vector3 defaultSize;
 
     // Use this for initialization
-    void Start()
+    void Start ()
     {
         SelectZombie(selectedZombie);
     }
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
         if (Input.GetKeyDown("left"))
         {
