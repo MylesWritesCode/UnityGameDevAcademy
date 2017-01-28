@@ -24,6 +24,8 @@ ExportedObj/
 *.svd
 *.pdb
 
+# Models
+*.fbx
 
 # Unity3D generated meta files
 *.pidb.meta
