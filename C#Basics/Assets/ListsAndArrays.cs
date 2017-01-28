@@ -35,6 +35,11 @@ public class ListsAndArrays : MonoBehaviour
             cubes[i] = cube;
             cube.transform.position = new Vector3(i, 2*i, i);
         }
+
+        for (int j = 0; j < players.Length; j++)
+        {
+            Debug.Log("Player " + players[j] + "has joined the game.");
+        }
     }
 	
 	// Update is called once per frame
