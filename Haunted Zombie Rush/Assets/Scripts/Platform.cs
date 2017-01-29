@@ -14,7 +14,7 @@ public class Platform : MonoBehaviour
 	// Update is called once per frame
 	protected virtual void Update () 
 	{
-		if (!GameManager.instance.GameOver)
+		if (!GameManager.instance.GameOver && GameManager.instance.PlayerActive)
 		{
 			// Set relative to Space.World so that it doesn't translate the object elsewhere besides along the X axis due to rotation.
 			transform.Translate((objectSpeed * Time.deltaTime), 0, 0, Space.World);

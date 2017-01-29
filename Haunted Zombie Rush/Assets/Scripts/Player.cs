@@ -6,12 +6,13 @@ public class Player : MonoBehaviour
 	[SerializeField] private float jumpForce = 100f;
 	[SerializeField] private AudioClip sfxJump;
 	[SerializeField] private AudioClip sfxDeath;
-	// [SerializeField]private Vector3 startPosition;
+	[SerializeField] private Vector3 initialPosition = new Vector3(0.5f, 6f, 12f);
 
 	private Animator anim;
 	private Rigidbody rigidBody;
 	private bool jump = false;
 	private AudioSource audioSource;
+	private int score = 0;
 	
 
 	void Awake()
@@ -52,6 +53,14 @@ public class Player : MonoBehaviour
 				jump = true;
 			}
 		}
+		if (GameManager.instance.GameRestarted)
+		{
+			rigidBody.useGravity = false;
+			rigidBody.detectCollisions = true;
+			transform.position = initialPosition;
+			rigidBody.velocity = new Vector3(0, 0, 0);
+			GameManager.instance.SetResetFalse();
+		}
 	}
 
 	void FixedUpdate()
@@ -67,14 +76,14 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	void OnCollisionEnter(Collision collision)
-	{
-		if (collision.gameObject.tag == "Obstacle")
-		{
-			rigidBody.AddForce(new Vector2(-50, 20), ForceMode.Impulse);
-			rigidBody.detectCollisions = false;
-			audioSource.PlayOneShot(sfxDeath);
-			GameManager.instance.PlayerCollided();
-		}
-	}
+	// void OnCollisionEnter(Collision collision)
+	// {
+	// 	if (collision.gameObject.tag == "Obstacle")
+	// 	{
+	// 		rigidBody.AddForce(new Vector2(-50, 20), ForceMode.Impulse);
+	// 		rigidBody.detectCollisions = false;
+	// 		audioSource.PlayOneShot(sfxDeath);
+	// 		GameManager.instance.PlayerCollided();
+	// 	}
+	// }
 }

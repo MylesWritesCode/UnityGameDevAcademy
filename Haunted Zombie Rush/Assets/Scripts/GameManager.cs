@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
 
 public class GameManager : MonoBehaviour 
@@ -10,14 +11,14 @@ public class GameManager : MonoBehaviour
 
 	private bool playerActive = false;
 	private bool gameOver = false;
-	private bool restartGame = false;
 	// Was a public for some reason. I don't know why. There's an accessor here.
 	private bool gameStarted = false;
+	private bool gameRestarted = false;
 
 	public bool PlayerActive { get { return playerActive; }	}
 	public bool GameOver {	get { return gameOver; } }
-	public bool RestartGame { get { return restartGame; } }
 	public bool GameStarted { get { return gameStarted; } }
+	public bool GameRestarted { get { return gameRestarted; } }
 
 	void Awake() 
 	{
@@ -66,14 +67,22 @@ public class GameManager : MonoBehaviour
 		gameStarted = true;
 	}
 
-	public void showMainMenu()
+	public void ShowMainMenu()
 	{
 		endMenu.SetActive(false);
 		mainMenu.SetActive(true);
 	}
 
-	public void isRestarted()
+	public void ResetStage()
 	{
-		restartGame = true;
+		gameRestarted = true;
+		gameOver = false;
+		playerActive = false;
+		EnterGame();
+	}
+
+	public void SetResetFalse()
+	{
+		gameRestarted = false;
 	}
 }
