@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Assertions;
 
 public class GameManager : MonoBehaviour 
@@ -7,6 +8,7 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] private GameObject mainMenu;
 	[SerializeField] private GameObject endMenu;
+	[SerializeField] private GameObject gameText;
 
 	private bool playerActive = false;
 	private bool gameOver = false;
@@ -14,6 +16,9 @@ public class GameManager : MonoBehaviour
 	private bool gameStarted = false;
 	private bool gameRestarted = false;
 	private int score = 0;
+
+	public Text scoreText;
+	public Text endScoreText;
 
 	public bool PlayerActive { get { return playerActive; }	}
 	public bool GameOver {	get { return gameOver; } }
@@ -35,6 +40,9 @@ public class GameManager : MonoBehaviour
 
 		Assert.IsNotNull(mainMenu);
 		Assert.IsNotNull(endMenu);
+		Assert.IsNotNull(gameText);
+		Assert.IsNotNull(scoreText);
+		Assert.IsNotNull(endScoreText);
 	}
 
 	// Use this for initialization
@@ -52,7 +60,9 @@ public class GameManager : MonoBehaviour
 	public void PlayerCollided()
 	{
 		gameOver = true;
+		gameText.SetActive(false);
 		endMenu.SetActive(true);
+		endScoreText.text = "" + score;
 	}
 
 	public void PlayerStartedGame()
@@ -62,8 +72,10 @@ public class GameManager : MonoBehaviour
 
 	public void EnterGame()
 	{
+		score = 0;
 		mainMenu.SetActive(false);
 		endMenu.SetActive(false);
+		gameText.SetActive(true);
 		gameStarted = true;
 	}
 
@@ -89,5 +101,6 @@ public class GameManager : MonoBehaviour
 	public void AddPoint()
 	{
 		score++;
+		scoreText.text = "" + score;
 	}
 }

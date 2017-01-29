@@ -78,16 +78,16 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	// void OnCollisionEnter(Collision collision)
-	// {
-	// 	if (collision.gameObject.tag == "Obstacle")
-	// 	{
-	// 		rigidBody.AddForce(new Vector2(-50, 20), ForceMode.Impulse);
-	// 		rigidBody.detectCollisions = false;
-	// 		audioSource.PlayOneShot(sfxDeath);
-	// 		GameManager.instance.PlayerCollided();
-	// 	}
-	// }
+	void OnCollisionEnter(Collision collision)
+	{
+		if (collision.gameObject.tag == "Obstacle")
+		{
+			rigidBody.AddForce(new Vector2(-50, 20), ForceMode.Impulse);
+			rigidBody.detectCollisions = false;
+			audioSource.PlayOneShot(sfxDeath);
+			GameManager.instance.PlayerCollided();
+		}
+	}
 	
 	void OnTriggerEnter(Collider other)
 	{
