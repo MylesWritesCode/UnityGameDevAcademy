@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
 
 public class GameManager : MonoBehaviour 
@@ -14,6 +13,7 @@ public class GameManager : MonoBehaviour
 	// Was a public for some reason. I don't know why. There's an accessor here.
 	private bool gameStarted = false;
 	private bool gameRestarted = false;
+	private int score = 0;
 
 	public bool PlayerActive { get { return playerActive; }	}
 	public bool GameOver {	get { return gameOver; } }
@@ -84,5 +84,10 @@ public class GameManager : MonoBehaviour
 	public void SetResetFalse()
 	{
 		gameRestarted = false;
+	}
+
+	public void AddPoint()
+	{
+		score++;
 	}
 }

@@ -1,15 +1,18 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+// using UnityEngine.Assertions;
 
 public class Coins : Platform 
 {
-	[SerializeField] private Vector3 topPosition = new Vector3(0f, 10f, 0f);
-	[SerializeField] private Vector3 bottomPosition = new Vector3(0f, 0f, 0f);
+	[SerializeField] private Vector3 topPosition;
+	[SerializeField] private Vector3 bottomPosition;
 	[SerializeField] private float rotationSpeed = 100f;
 	[SerializeField] private float ySpeed = 2.5f;
 
-	private GameObject coin;
+	void Awake()
+	{
+		// Assert.IsNotNull(coinPrefab);
+	}
 	// Use this for initialization
 	void Start () 
 	{
@@ -28,8 +31,6 @@ public class Coins : Platform
 	{
 		base.Update();
 		transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
-
-		// Instantiate coins at random heights.
 	}
 
 	IEnumerator Move(Vector3 target)
