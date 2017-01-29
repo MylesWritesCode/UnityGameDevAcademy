@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Platform : MonoBehaviour 
 {
@@ -16,12 +14,16 @@ public class Platform : MonoBehaviour
 	// Update is called once per frame
 	protected virtual void Update () 
 	{
-		transform.Translate(Vector3.right * (objectSpeed * Time.deltaTime));
-
-		if (transform.localPosition.x >= resetPosition)
+		if (!GameManager.instance.GameOver)
 		{
-			Vector3 newPos = new Vector3(startPosition, transform.position.y, transform.position.z);
-			transform.position = newPos;
+			// Set relative to Space.World so that it doesn't translate the object elsewhere besides along the X axis due to rotation.
+			transform.Translate((objectSpeed * Time.deltaTime), 0, 0, Space.World);
+
+			if (transform.localPosition.x >= resetPosition)
+			{
+				Vector3 newPos = new Vector3(startPosition, transform.position.y, transform.position.z);
+				transform.position = newPos;
+			}
 		}
 	}
 }
