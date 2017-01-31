@@ -1,11 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour 
+public class GameManager : Singleton<GameManager> 
 {
-	// This is to create a single instance of GameManager.cs
-	public static GameManager instance = null;
 	public GameObject spawnPoint;
 	public GameObject[] enemies;
 	public int maxEnemiesOnScreen;
@@ -14,21 +11,6 @@ public class GameManager : MonoBehaviour
 
 	private int enemiesOnScreen = 0;
 	const float spawnDelay = 0.5f;
-
-	void Awake()
-	{
-		// Makes sure that only one GameManager exists throughout the whole game.
-		if (instance == null)
-		{
-			instance = this;
-		}
-		else if (instance != this)
-		{
-			Destroy(gameObject);
-		}
-		// Object GameManager persists throughout loads.
-		DontDestroyOnLoad(gameObject);
-	}
 
 	// Use this for initialization
 	void Start () 

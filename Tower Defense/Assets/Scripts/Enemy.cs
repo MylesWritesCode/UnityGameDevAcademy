@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
 		else if (other.tag == "Finish")
 		{
 			// Let GameManager know that there's one less enemy on screen.
-			GameManager.instance.RemoveEnemyFromScreen();
+			GameManager.Instance.RemoveEnemyFromScreen();
 			// Destroy other gameObject.
 			Destroy(gameObject);
 		}
