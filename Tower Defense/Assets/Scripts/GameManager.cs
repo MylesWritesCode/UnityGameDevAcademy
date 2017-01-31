@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
 	void Awake()
 	{
+		// Makes sure that only one GameManager exists throughout the whole game.
 		if (instance == null)
 		{
 			instance = this;
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
+		// Object GameManager persists throughout loads.
 		DontDestroyOnLoad(gameObject);
 	}
 
@@ -41,14 +43,19 @@ public class GameManager : MonoBehaviour
 
 	void SpawnEnemy()
 	{
+		// Check how much enemies to spawn and how many enemies are on screen.
 		if (enemiesPerSpawn > 0 && enemiesOnScreen < totalEnemies)
 		{
 			for(int i = 0; i < enemiesPerSpawn; i++)
 			{
+				// Check if the enemies on screen is less than the desired amount of enemies.
 				if (enemiesOnScreen < maxEnemiesOnScreen)
 				{
+					// Instantiate as GameObject, not as Object.
 					GameObject newEnemy = Instantiate(enemies[0]) as GameObject;
+					// Move GameObject newEnemy to starting position.
 					newEnemy.transform.position = spawnPoint.transform.position;
+					// Increment int enemiesOnScreen (so the if statement above will stop calling this method). 
 					enemiesOnScreen++;
 				}
 			}
@@ -59,6 +66,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (enemiesOnScreen > 0)
 		{
+			// Called from another Class where if the enemy goes past the finish line, this method is called to decrease the enemiesOnScreen value. 
 			enemiesOnScreen--;
 		}
 	}

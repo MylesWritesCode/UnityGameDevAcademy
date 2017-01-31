@@ -23,12 +23,16 @@ public class Enemy : MonoBehaviour
 			navigationTime += Time.deltaTime;
 			if (navigationTime > navigationUpdate)
 			{
+				// [Updated from OnTriggerEnter]
+				// Figure out how many waypoints are in script, and if target is less than that...
 				if (target < waypoints.Length) 
 				{
+					// MoveTowards target
 					enemy.position = Vector2.MoveTowards(enemy.position, waypoints[target].position, navigationTime);
 				}
 				else 
 				{
+					// No new target exists, MoveTowards exitPoint
 					enemy.position = Vector2.MoveTowards(enemy.position, exitPoint.position, navigationTime);
 				}
 				navigationTime = 0;
@@ -36,15 +40,19 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
+	// Triger enter for waypoints.
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.tag == "Checkpoint")
 		{
+			// Increment int target for Update().
 			target++;
 		}
 		else if (other.tag == "Finish")
 		{
+			// Let GameManager know that there's one less enemy on screen.
 			GameManager.instance.RemoveEnemyFromScreen();
+			// Destroy other gameObject.
 			Destroy(gameObject);
 		}
 	}
