@@ -17,20 +17,25 @@ public class TowerManager : Singleton<TowerManager>
 	void Update ()
 	{
 		// Getting input needs to be in Update(). If left-click on screen...
-		if (Input.GetMouseButtonDown(0))
+		if(Input.GetMouseButtonDown(0))
 		{
 			// Find the position of click and set to mapPoint.
 			Vector2 mapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			// Find the distance between (0, 0) and the point that was touched (clicked). Set to hit.
 			RaycastHit2D hit = Physics2D.Raycast(mapPoint, Vector2.zero);
+			Debug.Log(hit.collider.tag);
 			// If you're allowed to build on the hit point...
-			if(hit.collider.tag == "Build Site")
+			if(hit.collider.tag == "BuildSite")
 			{
 				// Changes collider tag so we can't build another tower there.
-				hit.collider.tag = "Build Site Full";
+				hit.collider.tag = "BuildSiteFull";
 				// Run PlaceTower() on hit (pos of click).
 				PlaceTower(hit);
 			}
+		}
+		if(spriteRenderer.enabled)
+		{
+			FollowMouse();
 		}
 	}
 
@@ -44,11 +49,31 @@ public class TowerManager : Singleton<TowerManager>
 			GameObject newTower = Instantiate(towerBtnPressed.TowerObject);
 			// Move TowerObject to raycasted position.
 			newTower.transform.position = hit.transform.position;
+			DisableDragSprite();
 		}
 	}
 
 	public void selectedTower(TowerBtn towerSelected)
 	{
 		towerBtnPressed = towerSelected;
+		EnableDragSprite(towerBtnPressed.DragSprite);
+	}
+
+	public void FollowMouse()
+	{
+		transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		// Makes everything stay on the top of the screen.
+		transform.position = new Vector2(transform.position.x, transform.position.y);
+	}
+
+	public void EnableDragSprite(Sprite sprite)
+	{
+		spriteRenderer.enabled = true;
+		spriteRenderer.sprite = sprite;
+	}
+
+	public void DisableDragSprite()
+	{
+		spriteRenderer.enabled = false;
 	}
 }
