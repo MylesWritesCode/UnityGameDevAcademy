@@ -5,11 +5,12 @@ public class TowerManager : Singleton<TowerManager>
 {
 	// Type of TowerBtn from /Towers/TowerBtn.cs
 	private TowerBtn towerBtnPressed;
+	private SpriteRenderer spriteRenderer;
 
 	// Use this for initialization
 	void Start () 
 	{
-		
+		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -25,6 +26,8 @@ public class TowerManager : Singleton<TowerManager>
 			// If you're allowed to build on the hit point...
 			if(hit.collider.tag == "Build Site")
 			{
+				// Changes collider tag so we can't build another tower there.
+				hit.collider.tag = "Build Site Full";
 				// Run PlaceTower() on hit (pos of click).
 				PlaceTower(hit);
 			}
