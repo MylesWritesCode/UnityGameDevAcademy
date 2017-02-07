@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿// Class controls all enemies. 
+using UnityEngine;
 
 public class Enemy : MonoBehaviour 
 {
