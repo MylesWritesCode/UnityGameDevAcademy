@@ -38,8 +38,6 @@ public class GameManager : Singleton<GameManager>
 				GameObject newEnemy = Instantiate(enemies[0]) as GameObject;
 				// Move GameObject newEnemy to starting position.
 				newEnemy.transform.position = spawnPoint.transform.position;
-				// Increment int enemiesOnScreen (so the if statement above will stop calling this method). 
-				// enemiesOnScreen++;
 			}
 		}
 		yield return new WaitForSeconds(spawnDelay);
@@ -65,14 +63,4 @@ public class GameManager : Singleton<GameManager>
 		}
 		EnemyList.Clear();
 	}
-
-	// Don't need this any more since we're using a register instead.
-	// public void RemoveEnemyFromScreen()
-	// {
-	// 	if (enemiesOnScreen > 0)
-	// 	{
-	// 		// Called from another Class where if the enemy goes past the finish line, this method is called to decrease the enemiesOnScreen value. 
-	// 		enemiesOnScreen--;
-	// 	}
-	// }
 }
