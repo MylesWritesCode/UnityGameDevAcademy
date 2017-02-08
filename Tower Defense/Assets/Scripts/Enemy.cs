@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 	void Start () 
 	{
 		enemy = GetComponent<Transform>();
+		GameManager.Instance.RegisterEnemy(this);
 	}
 	
 	// Update is called once per frame
@@ -51,10 +52,14 @@ public class Enemy : MonoBehaviour
 		}
 		else if (other.tag == "Finish")
 		{
-			// Let GameManager know that there's one less enemy on screen.
-			GameManager.Instance.RemoveEnemyFromScreen();
-			// Destroy other gameObject.
-			Destroy(gameObject);
+			// Don't need this code anymore, it's being handled by the register.
+			// // Let GameManager know that there's one less enemy on screen.
+			// GameManager.Instance.RemoveEnemyFromScreen();
+			// // Destroy other gameObject.
+			// Destroy(gameObject);
+
+			// Much cleaner way to remove enemies using a register system.
+			GameManager.Instance.UnregisterEnemy(this);
 		}
 	}
 }

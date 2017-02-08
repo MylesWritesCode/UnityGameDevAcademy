@@ -1,5 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : Singleton<GameManager> 
 {
@@ -9,6 +10,8 @@ public class GameManager : Singleton<GameManager>
 	[SerializeField] private int totalEnemies;
 	[SerializeField] private int enemiesPerSpawn;
 
+	public List<Enemy> EnemyList = new List<Enemy>();
+	
 	private int enemiesOnScreen = 0;
 	const float spawnDelay = 0.5f;
 
@@ -29,26 +32,47 @@ public class GameManager : Singleton<GameManager>
 		for(int i = 0; i < enemiesPerSpawn; i++)
 		{
 			// Check if the enemies on screen is less than the desired amount of enemies.
-			if (enemiesOnScreen < maxEnemiesOnScreen)
+			if (EnemyList.Count < maxEnemiesOnScreen)
 			{
 				// Instantiate as GameObject, not as Object.
 				GameObject newEnemy = Instantiate(enemies[0]) as GameObject;
 				// Move GameObject newEnemy to starting position.
 				newEnemy.transform.position = spawnPoint.transform.position;
 				// Increment int enemiesOnScreen (so the if statement above will stop calling this method). 
-				enemiesOnScreen++;
+				// enemiesOnScreen++;
 			}
 		}
 		yield return new WaitForSeconds(spawnDelay);
 		StartCoroutine(Spawn());
 	}
 
-	public void RemoveEnemyFromScreen()
+	public void RegisterEnemy(Enemy enemy)
 	{
-		if (enemiesOnScreen > 0)
-		{
-			// Called from another Class where if the enemy goes past the finish line, this method is called to decrease the enemiesOnScreen value. 
-			enemiesOnScreen--;
-		}
+		EnemyList.Add(enemy);
 	}
+
+	public void UnregisterEnemy(Enemy enemy)
+	{
+		EnemyList.Remove(enemy);
+		Destroy(enemy.gameObject);
+	}
+
+	public void DestroyAllEnemies()
+	{
+		foreach(Enemy enemy in EnemyList)
+		{
+			Destroy(enemy.gameObject);
+		}
+		EnemyList.Clear();
+	}
+
+	// Don't need this any more since we're using a register instead.
+	// public void RemoveEnemyFromScreen()
+	// {
+	// 	if (enemiesOnScreen > 0)
+	// 	{
+	// 		// Called from another Class where if the enemy goes past the finish line, this method is called to decrease the enemiesOnScreen value. 
+	// 		enemiesOnScreen--;
+	// 	}
+	// }
 }
