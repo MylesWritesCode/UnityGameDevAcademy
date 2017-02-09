@@ -29,7 +29,7 @@ public class GameManager : Singleton<GameManager>
 
 	IEnumerator Spawn()
 	{
-		for(int i = 0; i < enemiesPerSpawn; i++)
+		for (int i = 0; i < enemiesPerSpawn; i++)
 		{
 			// Check if the enemies on screen is less than the desired amount of enemies.
 			if (EnemyList.Count < maxEnemiesOnScreen)
