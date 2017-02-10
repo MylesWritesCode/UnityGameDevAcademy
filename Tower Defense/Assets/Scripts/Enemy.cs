@@ -6,21 +6,36 @@ public class Enemy : MonoBehaviour
 	[SerializeField] private Transform exitPoint;
 	[SerializeField] private Transform[] waypoints;
 	[SerializeField] private float navigationUpdate;
+	[SerializeField] private float healthPoints;
 
 	private int target = 0;
 	private Transform enemy;
 	private float navigationTime = 0;
+	private bool isDead = false;
+	private Collider2D enemyCollider;
+	private Animator anim;
+
+	public bool IsDead
+	{
+		get
+		{
+			return isDead;
+		}
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
 		enemy = GetComponent<Transform>();
 		GameManager.Instance.RegisterEnemy(this);
+		enemyCollider = GetComponent<Collider2D>();
+		anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if (waypoints != null)
+		if (waypoints != null && !isDead)
 		{
 			navigationTime += Time.deltaTime;
 			if (navigationTime > navigationUpdate)
@@ -57,7 +72,33 @@ public class Enemy : MonoBehaviour
 		}
 		else if (other.tag == "Projectiles")
 		{
+			Projectile newProjectile = other.gameObject.GetComponent<Projectile>();
+			projectileHit(newProjectile.AttackDmg);
+			// Removes projectile gameObject.
 			Destroy(other.gameObject);
 		}
+	}
+
+	public void projectileHit(int attackDamage)
+	{
+		if ((healthPoints - attackDamage) > 0)
+		{
+			healthPoints -= attackDamage;
+			// Hurt animation
+			anim.Play("Hurt");
+		}
+		else
+		{
+			// Die animation
+			anim.SetTrigger("didDie");
+			Die();
+			// Remove collider so that towers stop shooting them.
+		}
+	}
+
+	public void Die()
+	{
+		isDead = true;
+		enemyCollider.enabled = false;
 	}
 }
