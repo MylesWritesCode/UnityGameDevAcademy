@@ -23,7 +23,6 @@ public class TowerManager : Singleton<TowerManager>
 			Vector2 mapPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			// Find the distance between (0, 0) and the point that was touched (clicked). Set to hit.
 			RaycastHit2D hit = Physics2D.Raycast(mapPoint, Vector2.zero);
-			Debug.Log(hit.collider.tag);
 			// If you're allowed to build on the hit point...
 			if(hit.collider.tag == "BuildSite")
 			{

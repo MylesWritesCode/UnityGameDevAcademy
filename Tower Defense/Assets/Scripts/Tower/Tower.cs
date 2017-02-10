@@ -21,7 +21,7 @@ public class Tower : MonoBehaviour
 	void Update () 
 	{
 		attackSpeedTimer -= Time.deltaTime;
-		if (targetEnemy = null)
+		if (targetEnemy == null)
 		{
 			Enemy nearestEnemy = GetNearestEnemyInRange();
 			if (nearestEnemy != null && Vector2.Distance(transform.localPosition, nearestEnemy.transform.localPosition) <= attackRange)

@@ -12,7 +12,7 @@ public class GameManager : Singleton<GameManager>
 
 	public List<Enemy> EnemyList = new List<Enemy>();
 	
-	private int enemiesOnScreen = 0;
+	// private int enemiesOnScreen = 0;
 	const float spawnDelay = 0.5f;
 
 	// Use this for initialization

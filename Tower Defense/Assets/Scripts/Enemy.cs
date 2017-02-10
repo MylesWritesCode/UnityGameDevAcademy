@@ -55,5 +55,9 @@ public class Enemy : MonoBehaviour
 			// Removes enemy from List<Enemy> register.
 			GameManager.Instance.UnregisterEnemy(this);
 		}
+		else if (other.tag == "Projectiles")
+		{
+			Destroy(other.gameObject);
+		}
 	}
 }
