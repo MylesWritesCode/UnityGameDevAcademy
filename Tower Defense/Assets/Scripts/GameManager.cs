@@ -30,7 +30,7 @@ public class GameManager : Singleton<GameManager>
 	private int roundEscaped = 0;
 	private int totalKilled = 0;
 	private int whichEnemiesToSpawn = 0;
-	private gameStatus currentState;
+	private gameStatus currentState = gameStatus.play;
 	// private int enemiesOnScreen = 0;
 	const float spawnDelay = 0.5f;
 
@@ -124,7 +124,7 @@ public class GameManager : Singleton<GameManager>
 			case gameStatus.play:
 				playBtnLbl.text = "Play";
 				break;
-				
+
 			case gameStatus.win:
 				playBtnLbl.text = "Play";
 				break;
