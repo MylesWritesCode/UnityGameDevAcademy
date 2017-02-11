@@ -58,7 +58,7 @@ public class GameManager : Singleton<GameManager>
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		HandleEscape();
 	}
 
 	IEnumerator Spawn()
@@ -130,5 +130,14 @@ public class GameManager : Singleton<GameManager>
 				break;
 		}
 		playBtn.gameObject.SetActive(true);
+	}
+
+	private void HandleEscape()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			TowerManager.Instance.DisableDragSprite();
+			TowerManager.Instance.towerBtnPressed = null;
+		}
 	}
 }
