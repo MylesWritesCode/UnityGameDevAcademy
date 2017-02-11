@@ -30,7 +30,7 @@ public class GameManager : Singleton<GameManager>
 	private int roundEscaped = 0;
 	private int totalKilled = 0;
 	private int whichEnemiesToSpawn = 0;
-	private gameStatus currentState = gameStatus.play;
+	private gameStatus currentState;
 	// private int enemiesOnScreen = 0;
 	const float spawnDelay = 0.5f;
 
@@ -110,18 +110,21 @@ public class GameManager : Singleton<GameManager>
 
 	public void ShowMenu()
 	{
-		switch (currentState)
+		switch(currentState)
 		{
 			case gameStatus.gameover:
 				playBtnLbl.text = "Play Again";
 				// gameover sound
+				break;
 
 			case gameStatus.next:
 				playBtnLbl.text = "Next Wave";
+				break;
 
 			case gameStatus.play:
 				playBtnLbl.text = "Play";
-
+				break;
+				
 			case gameStatus.win:
 				playBtnLbl.text = "Play";
 				break;
