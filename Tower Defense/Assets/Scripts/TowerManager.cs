@@ -6,6 +6,7 @@ public class TowerManager : Singleton<TowerManager>
 	// Type of TowerBtn from /Towers/TowerBtn.cs
 	public TowerBtn towerBtnPressed {get; set;}
 	private SpriteRenderer spriteRenderer;
+	// Tower cost
 
 	// Use this for initialization
 	void Start () 
