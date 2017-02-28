@@ -144,7 +144,7 @@ public class GameManager : Singleton<GameManager>
 		TotalMoney -= amount;
 	}
 
-	public void isWaveOver()
+	public void IsWaveOver()
 	{
 		// UI Label for total enemies escaped.
 		totalEscapedLbl.text = "Escaped " + TotalEscaped + "/10";

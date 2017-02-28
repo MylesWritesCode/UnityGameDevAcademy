@@ -74,6 +74,7 @@ public class Enemy : MonoBehaviour
 			GameManager.Instance.RoundEscaped++;
 			// Removes enemy from List<Enemy> register.
 			GameManager.Instance.UnregisterEnemy(this);
+			GameManager.Instance.IsWaveOver();
 		}
 		else if (other.tag == "Projectiles")
 		{
@@ -107,5 +108,7 @@ public class Enemy : MonoBehaviour
 		enemyCollider.enabled = false;
 		// If enemy dies, add 1 to integer totalKilled in GameManager.cs.
 		GameManager.Instance.TotalKilled++;
+		GameManager.Instance.AddMoney(rewardAmount);
+		GameManager.Instance.IsWaveOver();
 	}
 }
