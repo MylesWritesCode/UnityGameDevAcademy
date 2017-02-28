@@ -8,6 +8,8 @@ public class TowerManager : Singleton<TowerManager>
 	private SpriteRenderer spriteRenderer;
 	// Tower cost
 
+	
+
 	// Use this for initialization
 	void Start () 
 	{
