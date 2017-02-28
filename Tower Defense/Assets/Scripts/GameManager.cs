@@ -19,7 +19,7 @@ public class GameManager : Singleton<GameManager>
 	[SerializeField] private GameObject spawnPoint;
 	[SerializeField] private GameObject[] enemies;
 	[SerializeField] private int maxEnemiesOnScreen;
-	[SerializeField] private int totalEnemies;
+	[SerializeField] private int totalEnemies = 3;
 	[SerializeField] private int enemiesPerSpawn;
 
 	public List<Enemy> EnemyList = new List<Enemy>();
@@ -198,6 +198,24 @@ public class GameManager : Singleton<GameManager>
 				break;
 		}
 		playBtn.gameObject.SetActive(true);
+	}
+
+	public void PlayBtnPressed()
+	{
+		switch (currentState)
+		{
+			// Case when play button is pressed for next wave.
+			case gameStatus.next:
+				waveNumber++;
+				totalEnemies += waveNumber;
+				break;
+			// Reset when the game is first played or finished.
+			default:
+			totalEnemies = 3;
+			TotalEscaped = 0;
+			TotalMoney = 10;
+			break;
+		}
 	}
 
 	private void HandleEscape()
