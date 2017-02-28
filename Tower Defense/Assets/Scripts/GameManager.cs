@@ -144,6 +144,38 @@ public class GameManager : Singleton<GameManager>
 		TotalMoney -= amount;
 	}
 
+	public void isWaveOver()
+	{
+		// UI Label for total enemies escaped.
+		totalEscapedLbl.text = "Escaped " + TotalEscaped + "/10";
+		if ((RoundEscaped + TotalKilled) == totalEnemies)
+		{
+			SetCurrentGameState();
+			ShowMenu();
+		}
+	}
+
+	// Method for calling game states from enumerator.
+	public void SetCurrentGameState()
+	{
+		if (TotalEscaped >= 10)
+		{
+			currentState = gameStatus.gameover;
+		}
+		else if (waveNumber == 0 && (TotalKilled + RoundEscaped) == 0)
+		{
+			currentState = gameStatus.play;
+		}
+		else if (waveNumber >= totalWaves)
+		{
+			currentState = gameStatus.win;
+		}
+		else
+		{
+			currentState = gameStatus.next;
+		}
+	}
+
 	public void ShowMenu()
 	{
 		switch(currentState)
