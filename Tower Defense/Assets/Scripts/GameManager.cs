@@ -34,6 +34,30 @@ public class GameManager : Singleton<GameManager>
 	// private int enemiesOnScreen = 0;
 	const float spawnDelay = 0.5f;
 
+	public int TotalEscaped 
+	{
+		get 
+		{
+			return totalEscaped;
+		}
+	}
+
+	public int RoundEscaped 
+	{
+		get
+		{
+			return roundEscaped;
+		}
+	}
+
+	public int TotalKilled
+	{
+		get
+		{
+			return totalKilled;
+		}
+	}
+
 	public int TotalMoney
 	{
 		get
