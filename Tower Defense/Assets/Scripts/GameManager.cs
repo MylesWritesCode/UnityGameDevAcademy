@@ -214,8 +214,16 @@ public class GameManager : Singleton<GameManager>
 			totalEnemies = 3;
 			TotalEscaped = 0;
 			TotalMoney = 10;
+			totalMoneyLbl.text = TotalMoney.ToString();
+			totalEscapedLbl.text = "Escaped " + TotalEscaped + "/10";
 			break;
 		}
+		DestroyAllEnemies();
+		TotalKilled = 0;
+		RoundEscaped = 0;
+		currentWaveLbl.text = "Wave " + (waveNumber + 1);
+		StartCoroutine(Spawn());
+		playBtn.gameObject.SetActive(false);
 	}
 
 	private void HandleEscape()
