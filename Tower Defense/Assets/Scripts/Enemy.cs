@@ -68,6 +68,10 @@ public class Enemy : MonoBehaviour
 		}
 		else if (other.tag == "Finish")
 		{
+			// Add total enemies who escaped through all rounds. From GameManager.cs.
+			GameManager.Instance.TotalEscaped++;
+			// Add total enemies who escaped through a single round. From GameManager.cs.
+			GameManager.Instance.RoundEscaped++;
 			// Removes enemy from List<Enemy> register.
 			GameManager.Instance.UnregisterEnemy(this);
 		}
