@@ -40,6 +40,10 @@ public class GameManager : Singleton<GameManager>
 		{
 			return totalEscaped;
 		}
+		set
+		{
+			totalEscaped = value;
+		}
 	}
 
 	public int RoundEscaped 
@@ -48,6 +52,10 @@ public class GameManager : Singleton<GameManager>
 		{
 			return roundEscaped;
 		}
+		set
+		{
+			roundEscaped = value;
+		}
 	}
 
 	public int TotalKilled
@@ -55,6 +63,10 @@ public class GameManager : Singleton<GameManager>
 		get
 		{
 			return totalKilled;
+		}
+		set 
+		{
+			totalKilled = value;
 		}
 	}
 

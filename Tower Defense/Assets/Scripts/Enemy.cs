@@ -105,5 +105,7 @@ public class Enemy : MonoBehaviour
 	{
 		isDead = true;
 		enemyCollider.enabled = false;
+		// If enemy dies, add 1 to integer totalKilled in GameManager.cs.
+		GameManager.Instance.TotalKilled++;
 	}
 }
