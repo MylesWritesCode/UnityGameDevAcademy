@@ -1,19 +1,21 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class TowerManager : Singleton<TowerManager> 
 {
 	// Type of TowerBtn from /Towers/TowerBtn.cs
 	public TowerBtn towerBtnPressed {get; set;}
 	private SpriteRenderer spriteRenderer;
-	// Tower cost
-
-	
+	private List<Tower> TowerList = new List<Tower>();
+	private List<Collider2D> BuildList = new List<Collider2D>();
+	private Collider2D buildTile;
 
 	// Use this for initialization
 	void Start () 
 	{
 		spriteRenderer = GetComponent<SpriteRenderer>();
+		buildTile = GetComponent<Collider2D>();
 	}
 	
 	// Update is called once per frame
