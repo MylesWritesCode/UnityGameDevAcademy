@@ -30,7 +30,7 @@ public class TowerManager : Singleton<TowerManager>
 			// Find the distance between (0, 0) and the point that was touched (clicked). Set to hit.
 			RaycastHit2D hit = Physics2D.Raycast(mapPoint, Vector2.zero);
 			// If you're allowed to build on the hit point...
-			if(hit.collider.tag == "BuildSite")
+			if (hit.collider.tag == "BuildSite")
 			{
 				buildTile = hit.collider;
 				// Changes collider tag so we can't build another tower there.
@@ -85,6 +85,8 @@ public class TowerManager : Singleton<TowerManager>
 			// Move TowerObject to raycasted position.
 			newTower.transform.position = hit.transform.position;
 			BuyTower(towerBtnPressed.TowerPrice);
+			// Play tower built sound.
+			GameManager.Instance.AudioSource.PlayOneShot(SoundManager.Instance.TowerBuilt);
 			RegisterTower(newTower);
 			DisableDragSprite();
 		}

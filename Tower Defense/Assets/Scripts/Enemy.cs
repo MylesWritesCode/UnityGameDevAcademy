@@ -92,6 +92,7 @@ public class Enemy : MonoBehaviour
 			healthPoints -= attackDamage;
 			// Hurt animation
 			anim.Play("Hurt");
+			GameManager.Instance.AudioSource.PlayOneShot(SoundManager.Instance.Hit);
 		}
 		else
 		{
@@ -108,6 +109,7 @@ public class Enemy : MonoBehaviour
 		enemyCollider.enabled = false;
 		// If enemy dies, add 1 to integer totalKilled in GameManager.cs.
 		GameManager.Instance.TotalKilled++;
+		GameManager.Instance.AudioSource.PlayOneShot(SoundManager.Instance.Death);
 		GameManager.Instance.AddMoney(rewardAmount);
 		GameManager.Instance.IsWaveOver();
 	}
