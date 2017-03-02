@@ -31,8 +31,10 @@ public class TowerManager : Singleton<TowerManager>
 			// If you're allowed to build on the hit point...
 			if(hit.collider.tag == "BuildSite")
 			{
+				buildTile = hit.collider;
 				// Changes collider tag so we can't build another tower there.
-				hit.collider.tag = "BuildSiteFull";
+				buildTile.tag = "BuildSiteFull";
+				RegisterBuildSite(buildTile);
 				// Run PlaceTower() on hit (pos of click).
 				PlaceTower(hit);
 			}
@@ -43,6 +45,34 @@ public class TowerManager : Singleton<TowerManager>
 		}
 	}
 
+	public void RegisterBuildSite(Collider2D buildTag)
+	{
+		BuildList.Add(buildTag);
+	}
+
+	public void RegisterTower(Tower tower)
+	{
+		TowerList.Add(tower);
+	}
+
+	public void RenameTagsBuildSite()
+	{
+		foreach (Collider2D buildTag in BuildList)
+		{
+			buildTag.tag = "BuildSite";
+		}
+		BuildList.Clear();
+	}
+
+	public void DestroyAllTowers()
+	{
+		foreach (Tower tower in TowerList)
+		{
+			Destroy(tower.gameObject);
+		}
+		TowerList.Clear();
+	}
+
 	// Uses Raycast to place tower on map.
 	public void PlaceTower(RaycastHit2D hit)
 	{
@@ -50,10 +80,11 @@ public class TowerManager : Singleton<TowerManager>
 		if(!EventSystem.current.IsPointerOverGameObject() && towerBtnPressed != null)
 		{
 			// Instantiate tower based on which button is pushed. TowerObject from TowerBtn.cs.
-			GameObject newTower = Instantiate(towerBtnPressed.TowerObject);
+			Tower newTower = Instantiate(towerBtnPressed.TowerObject);
 			// Move TowerObject to raycasted position.
 			newTower.transform.position = hit.transform.position;
 			BuyTower(towerBtnPressed.TowerPrice);
+			RegisterTower(newTower);
 			DisableDragSprite();
 		}
 	}
