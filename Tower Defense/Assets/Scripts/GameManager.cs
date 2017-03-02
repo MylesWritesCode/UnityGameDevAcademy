@@ -31,6 +31,7 @@ public class GameManager : Singleton<GameManager>
 	private int totalKilled = 0;
 	private int whichEnemiesToSpawn = 0;
 	private gameStatus currentState = gameStatus.play;
+	private AudioSource audiosource;
 	// private int enemiesOnScreen = 0;
 	const float spawnDelay = 0.5f;
 
