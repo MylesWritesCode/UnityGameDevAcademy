@@ -18,7 +18,7 @@ public class GameManager : Singleton<GameManager>
 	[SerializeField] private Text totalEscapedLbl;
 	[SerializeField] private GameObject spawnPoint;
 	[SerializeField] private GameObject[] enemies;
-	[SerializeField] private int maxEnemiesOnScreen;
+	// [SerializeField] private int maxEnemiesOnScreen;
 	[SerializeField] private int totalEnemies = 3;
 	[SerializeField] private int enemiesPerSpawn;
 
@@ -102,7 +102,7 @@ public class GameManager : Singleton<GameManager>
 		for (int i = 0; i < enemiesPerSpawn; i++)
 		{
 			// Check if the enemies on screen is less than the desired amount of enemies.
-			if (EnemyList.Count < maxEnemiesOnScreen)
+			if (EnemyList.Count < totalEnemies)
 			{
 				// Instantiate as GameObject, not as Object.
 				GameObject newEnemy = Instantiate(enemies[0]) as GameObject;
