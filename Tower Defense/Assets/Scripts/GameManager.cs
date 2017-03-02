@@ -214,6 +214,8 @@ public class GameManager : Singleton<GameManager>
 			totalEnemies = 3;
 			TotalEscaped = 0;
 			TotalMoney = 10;
+			TowerManager.Instance.DestroyAllTowers();
+			TowerManager.Instance.RenameTagsBuildSite();
 			totalMoneyLbl.text = TotalMoney.ToString();
 			totalEscapedLbl.text = "Escaped " + TotalEscaped + "/10";
 			break;

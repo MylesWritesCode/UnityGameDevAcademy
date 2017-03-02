@@ -16,6 +16,7 @@ public class TowerManager : Singleton<TowerManager>
 	{
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		buildTile = GetComponent<Collider2D>();
+		spriteRenderer.enabled = false;
 	}
 	
 	// Update is called once per frame
