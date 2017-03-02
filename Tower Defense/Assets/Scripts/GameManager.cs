@@ -17,7 +17,7 @@ public class GameManager : Singleton<GameManager>
 	[SerializeField] private Button playBtn;
 	[SerializeField] private Text totalEscapedLbl;
 	[SerializeField] private GameObject spawnPoint;
-	[SerializeField] private GameObject[] enemies;
+	[SerializeField] private Enemy[] enemies;
 	// [SerializeField] private int maxEnemiesOnScreen;
 	[SerializeField] private int totalEnemies = 3;
 	[SerializeField] private int enemiesPerSpawn;
@@ -30,6 +30,7 @@ public class GameManager : Singleton<GameManager>
 	private int roundEscaped = 0;
 	private int totalKilled = 0;
 	private int whichEnemiesToSpawn = 0;
+	private int enemiesToSpawn = 0;
 	private gameStatus currentState = gameStatus.play;
 	private AudioSource audioSource;
 	// private int enemiesOnScreen = 0;
@@ -115,7 +116,7 @@ public class GameManager : Singleton<GameManager>
 			if (EnemyList.Count < totalEnemies)
 			{
 				// Instantiate as GameObject, not as Object.
-				GameObject newEnemy = Instantiate(enemies[0]) as GameObject;
+				Enemy newEnemy = Instantiate(enemies[Random.Range(0, enemiesToSpawn)]);
 				// Move GameObject newEnemy to starting position.
 				newEnemy.transform.position = spawnPoint.transform.position;
 			}
@@ -160,6 +161,11 @@ public class GameManager : Singleton<GameManager>
 		totalEscapedLbl.text = "Escaped " + TotalEscaped + "/10";
 		if ((RoundEscaped + TotalKilled) == totalEnemies)
 		{
+			if (waveNumber <= enemies.Length)
+			{
+				// Picks the item in enemy array to spawn.
+				enemiesToSpawn = waveNumber;
+			}
 			SetCurrentGameState();
 			ShowMenu();
 		}
@@ -225,6 +231,7 @@ public class GameManager : Singleton<GameManager>
 			totalEnemies = 3;
 			TotalEscaped = 0;
 			TotalMoney = 10;
+			enemiesToSpawn = 0;
 			TowerManager.Instance.DestroyAllTowers();
 			TowerManager.Instance.RenameTagsBuildSite();
 			totalMoneyLbl.text = TotalMoney.ToString();
