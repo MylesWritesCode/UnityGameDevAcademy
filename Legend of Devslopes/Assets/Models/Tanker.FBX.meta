@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 4054b01067e607046951c1fe16e4afff
-timeCreated: 1488753688
+timeCreated: 1488755744
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -50,10 +50,10 @@ ModelImporter:
     100084: Bip001 Spine2
     100086: L_hamer
     100088: Orc_Tanker
-    100090: //RootNode
-    100092: Orc_Tanker_Weapon
-    100094: Orc_Tanker_Weapon_b
-    100096: R_hamer
+    100090: Orc_Tanker_Weapon
+    100092: Orc_Tanker_Weapon_b
+    100094: R_hamer
+    100096: //RootNode
     400000: Bip001
     400002: Bip001 Footsteps
     400004: Bip001 Head
@@ -99,10 +99,10 @@ ModelImporter:
     400084: Bip001 Spine2
     400086: L_hamer
     400088: Orc_Tanker
-    400090: //RootNode
-    400092: Orc_Tanker_Weapon
-    400094: Orc_Tanker_Weapon_b
-    400096: R_hamer
+    400090: Orc_Tanker_Weapon
+    400092: Orc_Tanker_Weapon_b
+    400094: R_hamer
+    400096: //RootNode
     4300000: Orc_Tanker
     4300002: Orc_Tanker_Weapon_b
     4300004: Orc_Tanker_Weapon
