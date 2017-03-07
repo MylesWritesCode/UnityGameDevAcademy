@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
 	private CharacterController characterController;
 	private Vector3 currentLookTarget = Vector3.zero;
+	private Animator anim;
 
 	void Awake()
 	{
@@ -21,6 +22,8 @@ public class PlayerController : MonoBehaviour
 	{
 		// Look inside of the GameObject and get a Character Controller.
 		characterController = GetComponent<CharacterController>();	
+		// Look inside GameObject and get Animator.
+		anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -29,6 +32,26 @@ public class PlayerController : MonoBehaviour
 		// Get inputs from horizontal and vertical axis. 
 		Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 		characterController.SimpleMove(moveDirection * moveSpeed);
+
+		if (moveDirection == Vector3.zero)
+		{
+			anim.SetBool("IsWalking", false);
+		}
+		else
+		{
+			anim.SetBool("IsWalking", true);
+		}
+
+		if (Input.GetMouseButtonDown(0))
+		{
+			anim.Play("DoubleChop");
+		}
+
+		if (Input.GetMouseButtonDown(1))
+		{
+			anim.Play("SpinAttack");
+		}
+
 	}
 
 	void FixedUpdate()
@@ -38,7 +61,7 @@ public class PlayerController : MonoBehaviour
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		// See the ray being cast. 
 		Debug.DrawRay(ray.origin, ray.direction * 500, Color.blue);
-		// Check raycast hit points, if there are other physics collider triggers, don't set them off. 
+		// Check raycast hits points, if there are other physics collider triggers, don't set them off. 
 		if (Physics.Raycast(ray, out hit, 500, layerMask, QueryTriggerInteraction.Ignore))
 		{
 			// If camera isn't already looking at target...
