@@ -42,14 +42,20 @@ public class PlayerController : MonoBehaviour
 			anim.SetBool("IsWalking", true);
 		}
 
+		// If click...
 		if (Input.GetMouseButtonDown(0))
 		{
+			// Basic attack.
 			anim.Play("DoubleChop");
+			// Some other code here to damage based on collider hit.
 		}
 
+		// If click...
 		if (Input.GetMouseButtonDown(1))
 		{
+			// Spin attack animation.
 			anim.Play("SpinAttack");
+			// Some other code to damage based on collider hit.
 		}
 
 	}
