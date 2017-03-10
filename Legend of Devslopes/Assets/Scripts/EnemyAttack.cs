@@ -18,6 +18,7 @@ public class EnemyAttack : MonoBehaviour
 		anim = GetComponent<Animator>();
 		player = GameManager.instance.Player;
 		weaponColliders = GetComponentsInChildren<BoxCollider>();
+		StartCoroutine(attack());
 	}
 	
 	// Update is called once per frame
@@ -32,5 +33,19 @@ public class EnemyAttack : MonoBehaviour
 		{
 			playerInRange = false;
 		}
+	}
+
+	// Coroutine is a function that is able to work in code blocks.
+	// We can say "wait a few seconds, then move on" and stuff like that.
+	IEnumerator attack()
+	{
+		if (playerInRange && !GameManager.instance.GameOver)
+		{
+			anim.Play("Attack");
+			yield return new WaitForSeconds(attackSpeed);
+		}
+		yield return null;
+		// Recursive.
+		StartCoroutine(attack());
 	}
 }
