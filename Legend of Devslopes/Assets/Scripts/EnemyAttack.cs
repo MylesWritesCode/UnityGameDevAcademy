@@ -23,6 +23,14 @@ public class EnemyAttack : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		if (Vector3.Distance(transform.position, player.transform.position) < range)
+		{
+			playerInRange = true;
+			Debug.Log("Player In Range");
+		}
+		else
+		{
+			playerInRange = false;
+		}
 	}
 }
