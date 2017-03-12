@@ -27,6 +27,35 @@ public class PlayerHealth : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{
-		
+		if (timer >= timeSinceLastHit && !GameManager.instance.GameOver)
+		{
+			if (other.tag == "Weapon")
+			{
+				takeHit();
+				timer = 0;
+			}
+		}
+	}
+
+	void takeHit()
+	{
+		if (currentHealth > 0)
+		{
+			GameManager.instance.PlayerHit(currentHealth);
+			anim.Play("Hurt");
+			currentHealth -= 10;
+		}
+
+		if (currentHealth <= 0)
+		{
+			killPlayer();
+		}
+	}
+
+	void killPlayer()
+	{
+		GameManager.instance.PlayerHit(currentHealth);
+		anim.SetTrigger("HeroDie");
+		characterController.enabled = false;
 	}
 }
