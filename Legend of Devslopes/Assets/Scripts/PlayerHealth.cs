@@ -24,4 +24,9 @@ public class PlayerHealth : MonoBehaviour
 	{
 		timer += Time.deltaTime;
 	}
+
+	void OnTriggerEnter (Collider other)
+	{
+		
+	}
 }
