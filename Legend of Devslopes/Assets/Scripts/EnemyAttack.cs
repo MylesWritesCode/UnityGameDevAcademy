@@ -48,4 +48,20 @@ public class EnemyAttack : MonoBehaviour
 		// Recursive.
 		StartCoroutine(attack());
 	}
+
+	public void EnemyBeginAttack()
+	{
+		foreach (var weapon in weaponColliders)
+		{
+			weapon.enabled = true;
+		}
+	}
+
+	public void EnemyEndAttack()
+	{
+		foreach (var weapon in weaponColliders)
+		{
+			weapon.enabled = false;
+		}
+	}
 }
