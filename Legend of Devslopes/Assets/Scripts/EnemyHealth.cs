@@ -39,6 +39,51 @@ public class EnemyHealth : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		timer += Time.deltaTime;
+	}
+
+	void OnTriggerEnter (Collider other)
+	{
+		if (timer >= timeSinceLastHit && !GameManager.instance.GameOver)
+		{
+			if (other.tag == "PlayerWeapon")
+			{
+				takeHit();
+				timer = 0f;
+			}
+		}
+	}
+
+	void takeHit()
+	{
+		if (currentHealth > 0)
+		{
+			audio.PlayOneShot(audio.clip);
+			anim.Play("Hurt");
+			currentHealth -= 10;
+		}
+
+		if (currentHealth <= 0)
+		{
+			isAlive = false;
+			killEnemy();
+		}
+	}
+
+	void killEnemy()
+	{
+		capsuleCollider.enabled = false;
+		nav.enabled = false;
+		anim.SetTrigger ("EnemyDie");
+		rigidBody.isKinematic = true;
+		StartCoroutine(removeEnemy);
+	}
+
+	IEnumerator removeEnemy()
+	{
+		yield return new WaitForSeconds(4f);
+		disappearEnemy = true;
+		yield return new WaitForSeconds(2f);
+		Destroy(gameObject);
 	}
 }
