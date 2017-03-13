@@ -11,12 +11,15 @@ public class PlayerHealth : MonoBehaviour
 	private CharacterController characterController;
 	private Animator anim;
 	private int currentHealth;
+	private AudioSource hitAudio;
+
 	// Use this for initialization
 	void Start () 
 	{
 		anim = GetComponent<Animator>();
 		characterController = GetComponent<CharacterController>();
 		currentHealth = startingHealth;
+		hitAudio = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -44,6 +47,7 @@ public class PlayerHealth : MonoBehaviour
 			GameManager.instance.PlayerHit(currentHealth);
 			anim.Play("Hurt");
 			currentHealth -= 10;
+			hitAudio.PlayOneShot(hitAudio.clip);
 		}
 
 		if (currentHealth <= 0)
@@ -57,5 +61,6 @@ public class PlayerHealth : MonoBehaviour
 		GameManager.instance.PlayerHit(currentHealth);
 		anim.SetTrigger("HeroDie");
 		characterController.enabled = false;
+		audio.PlayOneShot(audio.clip);
 	}
 }
