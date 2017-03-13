@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 	private CharacterController characterController;
 	private Vector3 currentLookTarget = Vector3.zero;
 	private Animator anim;
+	private BoxCollider[] swordColliders;
 
 	void Awake()
 	{
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
 		characterController = GetComponent<CharacterController>();	
 		// Look inside GameObject and get Animator.
 		anim = GetComponent<Animator>();
+		swordColliders = GetComponentsInChildren<BoxCollider>();
 	}
 	
 	// Update is called once per frame
@@ -87,6 +89,22 @@ public class PlayerController : MonoBehaviour
 				// Initiate rotation between the angle it's currently rotated, the new rotation, by Time.deltaTime * 10f
 				transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 10f);
 			}
+		}
+	}
+
+	public void BeginAttack()
+	{
+		foreach (var weapon in swordColliders)
+		{
+			weapon.enabled = true;
+		}
+	}
+
+	public void EndAttack()
+	{
+		foreach (var weapon in swordColliders)
+		{
+			weapon.enabled = false;
 		}
 	}
 }
