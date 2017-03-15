@@ -18,6 +18,7 @@ public class EnemyHealth : MonoBehaviour
 	private CapsuleCollider capsuleCollider;
 	private bool disappearEnemy = false;
 	private int currentHealth;
+	private ParticleSystem orcBlood;
 
 	public bool IsAlive
 	{ 
@@ -34,6 +35,7 @@ public class EnemyHealth : MonoBehaviour
 		hitAudio = GetComponent<AudioSource>();
 		isAlive = true;
 		currentHealth = startingHealth;
+		orcBlood = GetComponentInChildren<ParticleSystem>();
 	}
 	
 	// Update is called once per frame
@@ -53,6 +55,7 @@ public class EnemyHealth : MonoBehaviour
 		{
 			if (other.tag == "PlayerWeapon")
 			{
+				orcBlood.Play();
 				takeHit();
 				timer = 0f;
 			}
