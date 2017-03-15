@@ -58,6 +58,7 @@ public class EnemyHealth : MonoBehaviour
 				orcBlood.Play();
 				takeHit();
 				timer = 0f;
+				hitAudio.PlayOneShot(hitAudio.clip);
 			}
 		}
 	}
@@ -66,7 +67,6 @@ public class EnemyHealth : MonoBehaviour
 	{
 		if (currentHealth > 0)
 		{
-			hitAudio.PlayOneShot(hitAudio.clip);
 			anim.Play("Hurt");
 			currentHealth -= 10;
 		}
