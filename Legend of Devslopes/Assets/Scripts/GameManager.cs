@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
 		
 	}
 
+	// Public getter for player hit to find out if the game is over or not.
 	public void PlayerHit(int currentHP)
 	{
 		if (currentHP > 0)
