@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 		get { return gameOver; }
 	}
 
+	// Public getter for other scripts to get Player gameObject.
 	public GameObject Player
 	{
 		get { return player; }
@@ -22,6 +23,8 @@ public class GameManager : MonoBehaviour
 
 	void Awake()
 	{
+		// Somewhat like a singleton from the last tutorial. This makes it so that you can't have more than one
+		// GameManager open.
 		if (instance == null)
 		{
 			instance = this;
