@@ -85,13 +85,17 @@ public class GameManager : MonoBehaviour
 
 	IEnumerator spawn()
 	{
+		Debug.Log("Spawn Coroutine Initiated.");
+		Debug.Log("Enemy Register Count: " + enemies.Count);
+		Debug.Log("Current Level: " + currentLevel);
 		// Check that spawn time is greater than current time.
 		if (currentSpawnTime > generatedSpawnTime)
 		{
 			currentSpawnTime = 0f;
 			// If there are less enemies on screen than the current level...
-			if (enemies.Count <  currentLevel)
+			if (enemies.Count <= currentLevel)
 			{
+				Debug.Log("Start Spawning...");
 				int randomNumber = Random.Range(0,spawnPoints.Length - 1);
 				// Randomly select a spawn point.
 				GameObject spawnLocation = spawnPoints[randomNumber];
@@ -127,6 +131,5 @@ public class GameManager : MonoBehaviour
 			// Start spawn routine again.
 			StartCoroutine(spawn());
 		}
-		yield return null;
 	}
 }
