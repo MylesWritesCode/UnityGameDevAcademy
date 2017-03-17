@@ -28,6 +28,8 @@ public class EnemyHealth : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		// Add this enemy to the list on spawn.
+		GameManager.instance.RegisterEnemy(this);
 		rigidBody = GetComponent<Rigidbody>();
 		capsuleCollider = GetComponent<CapsuleCollider>();
 		nav = GetComponent<NavMeshAgent>();
@@ -80,6 +82,8 @@ public class EnemyHealth : MonoBehaviour
 
 	void killEnemy()
 	{
+		// When this enemy is killed, register on KilledEnemy list in GameManager.
+		GameManager.instance.KilledEnemy(this);
 		capsuleCollider.enabled = false;
 		nav.enabled = false;
 		anim.SetTrigger ("EnemyDie");

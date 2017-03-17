@@ -60,13 +60,14 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		
+		currentLevel = 1;
+		StartCoroutine(spawn());
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		currentSpawnTime += Time.deltaTime;
 	}
 
 	// Public getter for player hit to find out if the game is over or not.
@@ -80,5 +81,52 @@ public class GameManager : MonoBehaviour
 		{
 			gameOver = true;
 		}
+	}
+
+	IEnumerator spawn()
+	{
+		// Check that spawn time is greater than current time.
+		if (currentSpawnTime > generatedSpawnTime)
+		{
+			currentSpawnTime = 0f;
+			// If there are less enemies on screen than the current level...
+			if (enemies.Count <  currentLevel)
+			{
+				int randomNumber = Random.Range(0,spawnPoints.Length - 1);
+				// Randomly select a spawn point.
+				GameObject spawnLocation = spawnPoints[randomNumber];
+				// Spawn a random enemy.
+				int randomEnemy = Random.Range(0, 3);
+				if (randomEnemy == 0)
+				{
+					newEnemy = Instantiate(soldier) as GameObject;
+				}
+				else if (randomEnemy == 1)
+				{
+					newEnemy = Instantiate(ranger) as GameObject;
+				}
+				else if (randomEnemy == 2)
+				{
+					newEnemy = Instantiate(tanker) as GameObject;
+				}
+				// Move the new enemy to random spawn point.
+				newEnemy.transform.position = spawnLocation.transform.position;
+			}
+		}
+		// If we killed the same number of enemies as the current level
+		if (killedEnemies.Count == currentLevel)
+		{
+			// Clear out enemies and killedEnemies lists.
+			enemies.Clear();
+			killedEnemies.Clear();
+			// Give us a breather instead of going straight into a new level.
+			yield return new WaitForSeconds(3f);
+			// Increment current level by 1.
+			currentLevel++;
+			levelText.text = "Level " + currentLevel;
+			// Start spawn routine again.
+			StartCoroutine(spawn());
+		}
+		yield return null;
 	}
 }
