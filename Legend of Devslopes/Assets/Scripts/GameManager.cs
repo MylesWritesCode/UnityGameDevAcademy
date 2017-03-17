@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour 
 {
 	public static GameManager instance = null;
 
 	[SerializeField] GameObject player;
+	[SerializeField] GameObject[] spawnPoints;
+	[SerializeField] GameObject tanker;
+	[SerializeField] GameObject ranger;
+	[SerializeField] GameObject soldier;
+	[SerializeField] Text levelText;
 
 	private bool gameOver = false;
 
