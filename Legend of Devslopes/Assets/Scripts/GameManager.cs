@@ -60,8 +60,8 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		currentLevel = 1;
 		StartCoroutine(spawn());
+		currentLevel = 1;
 	}
 	
 	// Update is called once per frame
@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
 		Debug.Log("Current Spawn Time: " + currentSpawnTime);
 		Debug.Log("Generated Spawn Time: " + generatedSpawnTime);
 		// Check that spawn time is greater than current time.
-		if (currentSpawnTime >= generatedSpawnTime)
+		if (currentSpawnTime > generatedSpawnTime)
 		{
 			currentSpawnTime = 0f;
 			// If there are less enemies on screen than the current level...
@@ -131,8 +131,11 @@ public class GameManager : MonoBehaviour
 				levelText.text = "Level " + currentLevel;
 			}
 		}
+		// Return null first before calling the function again, otherwise there's a crash.
+		// It makes sense. If the IEnumerator doesn't return anything, it's just waiting, and if I decide
+		// to call it again before I return anything, it's just going to be stuck in the first function spawn().
+		yield return null;
 		// Start spawn routine again.
 		StartCoroutine(spawn());
-		yield return null;
 	}
 }
