@@ -15,6 +15,22 @@ public class GameManager : MonoBehaviour
 	[SerializeField] Text levelText;
 
 	private bool gameOver = false;
+	private int currentLevel;
+	private float generatedSpawnTime = 1f;
+	private float currentSpawnTime = 0f;
+	private GameObject newEnemy;
+	private List<EnemyHealth> enemies = new List<EnemyHealth>();
+	private List<EnemyHealth> killedEnemies = new List<EnemyHealth>();
+
+	public void RegisterEnemy(EnemyHealth enemy)
+	{
+		enemies.Add(enemy);
+	}
+
+	public void KilledEnemy(EnemyHealth enemy)
+	{
+		killedEnemies.Add(enemy);
+	}
 
 	public bool GameOver 
 	{
