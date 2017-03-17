@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
 	void Update () 
 	{
 		currentSpawnTime += Time.deltaTime;
+		Debug.Log("Current Spawn Time: " + currentSpawnTime);
 	}
 
 	// Public getter for player hit to find out if the game is over or not.
@@ -88,12 +89,14 @@ public class GameManager : MonoBehaviour
 		Debug.Log("Spawn Coroutine Initiated.");
 		Debug.Log("Enemy Register Count: " + enemies.Count);
 		Debug.Log("Current Level: " + currentLevel);
+		Debug.Log("Current Spawn Time: " + currentSpawnTime);
+		Debug.Log("Generated Spawn Time: " + generatedSpawnTime);
 		// Check that spawn time is greater than current time.
-		if (currentSpawnTime > generatedSpawnTime)
+		if (currentSpawnTime >= generatedSpawnTime)
 		{
 			currentSpawnTime = 0f;
 			// If there are less enemies on screen than the current level...
-			if (enemies.Count <= currentLevel)
+			if (enemies.Count < currentLevel)
 			{
 				Debug.Log("Start Spawning...");
 				int randomNumber = Random.Range(0,spawnPoints.Length - 1);
@@ -129,7 +132,8 @@ public class GameManager : MonoBehaviour
 			currentLevel++;
 			levelText.text = "Level " + currentLevel;
 			// Start spawn routine again.
-			StartCoroutine(spawn());
 		}
+		StartCoroutine(spawn());
+		yield return null;
 	}
 }
