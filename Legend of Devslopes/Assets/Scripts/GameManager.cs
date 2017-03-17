@@ -68,7 +68,6 @@ public class GameManager : MonoBehaviour
 	void Update () 
 	{
 		currentSpawnTime += Time.deltaTime;
-		Debug.Log("Current Spawn Time: " + currentSpawnTime);
 	}
 
 	// Public getter for player hit to find out if the game is over or not.
@@ -119,20 +118,20 @@ public class GameManager : MonoBehaviour
 				// Move the new enemy to random spawn point.
 				newEnemy.transform.position = spawnLocation.transform.position;
 			}
+			// If we killed the same number of enemies as the current level
+			if (killedEnemies.Count == currentLevel)
+			{
+				// Clear out enemies and killedEnemies lists.
+				enemies.Clear();
+				killedEnemies.Clear();
+				// Give us a breather instead of going straight into a new level.
+				yield return new WaitForSeconds(3f);
+				// Increment current level by 1.
+				currentLevel++;
+				levelText.text = "Level " + currentLevel;
+			}
 		}
-		// If we killed the same number of enemies as the current level
-		if (killedEnemies.Count == currentLevel)
-		{
-			// Clear out enemies and killedEnemies lists.
-			enemies.Clear();
-			killedEnemies.Clear();
-			// Give us a breather instead of going straight into a new level.
-			yield return new WaitForSeconds(3f);
-			// Increment current level by 1.
-			currentLevel++;
-			levelText.text = "Level " + currentLevel;
-			// Start spawn routine again.
-		}
+		// Start spawn routine again.
 		StartCoroutine(spawn());
 		yield return null;
 	}
