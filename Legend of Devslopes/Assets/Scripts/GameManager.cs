@@ -85,11 +85,6 @@ public class GameManager : MonoBehaviour
 
 	IEnumerator spawn()
 	{
-		Debug.Log("Spawn Coroutine Initiated.");
-		Debug.Log("Enemy Register Count: " + enemies.Count);
-		Debug.Log("Current Level: " + currentLevel);
-		Debug.Log("Current Spawn Time: " + currentSpawnTime);
-		Debug.Log("Generated Spawn Time: " + generatedSpawnTime);
 		// Check that spawn time is greater than current time.
 		if (currentSpawnTime > generatedSpawnTime)
 		{
