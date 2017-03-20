@@ -27,11 +27,12 @@ public class RangerAttack : MonoBehaviour
 		if (Vector3.Distance(transform.position, player.transform.position) < range && enemyHealth.IsAlive)
 		{
 			playerInRange = true;
-			// Debug.Log("Player In Range");
+			anim.SetBool("PlayerInRange", true);
 		}
 		else
 		{
 			playerInRange = false;
+			anim.SetBool("PlayerInRange", false);
 		}
 	}
 
