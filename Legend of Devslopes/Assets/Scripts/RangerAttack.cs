@@ -28,6 +28,7 @@ public class RangerAttack : MonoBehaviour
 		{
 			playerInRange = true;
 			anim.SetBool("PlayerInRange", true);
+			rotateTowards(player.transform);
 		}
 		else
 		{
@@ -48,5 +49,15 @@ public class RangerAttack : MonoBehaviour
 		yield return null;
 		// Recursive.
 		StartCoroutine(attack());
+	}
+
+	private void rotateTowards(Transform player) 
+	{
+		// Create a direction towards player.
+		Vector3 direction = (player.position - transform.position).normalized;
+		// Find rotation towards player.
+		Quaternion lookRotation = Quaternion.LookRotation(direction);
+		// Perform actual rotation.
+		transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
 	}
 }
