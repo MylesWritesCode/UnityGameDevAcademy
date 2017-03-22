@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GameObject[] spawnPoints;
 	[SerializeField] GameObject tanker;
 	[SerializeField] GameObject ranger;
+	[SerializeField] GameObject arrow;
 	[SerializeField] GameObject soldier;
 	[SerializeField] Text levelText;
 
@@ -41,6 +42,12 @@ public class GameManager : MonoBehaviour
 	public GameObject Player
 	{
 		get { return player; }
+	}
+
+	// Public getter for arrow.
+	public GameObject Arrow
+	{
+		get { return arrow; }
 	}
 
 	void Awake()

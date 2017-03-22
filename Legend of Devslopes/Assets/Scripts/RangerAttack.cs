@@ -11,10 +11,12 @@ public class RangerAttack : MonoBehaviour
 	private GameObject player;
 	private bool playerInRange;
 	private EnemyHealth enemyHealth;
+	private GameObject arrow;
 
 	// Use this for initialization
 	void Start () 
 	{
+		arrow = GameManager.instance.Arrow;
 		anim = GetComponent<Animator>();
 		player = GameManager.instance.Player;
 		enemyHealth = GetComponent<EnemyHealth>();
@@ -59,5 +61,10 @@ public class RangerAttack : MonoBehaviour
 		Quaternion lookRotation = Quaternion.LookRotation(direction);
 		// Perform actual rotation.
 		transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+	}
+
+	public void FireArrow()
+	{
+
 	}
 }
