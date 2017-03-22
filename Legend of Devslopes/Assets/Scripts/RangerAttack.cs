@@ -6,6 +6,7 @@ public class RangerAttack : MonoBehaviour
 {
 	[SerializeField] private float range = 3f;
 	[SerializeField] private float attackSpeed = 1f;
+	[SerializeField] Transform fireLocation;
 
 	private Animator anim;
 	private GameObject player;
@@ -65,6 +66,8 @@ public class RangerAttack : MonoBehaviour
 
 	public void FireArrow()
 	{
+		// Load arrow into game.
+		GameObject newArrow = Instantiate(arrow) as GameObject;
 
 	}
 }
