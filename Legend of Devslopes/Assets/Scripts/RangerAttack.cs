@@ -68,6 +68,8 @@ public class RangerAttack : MonoBehaviour
 	{
 		// Load arrow into game.
 		GameObject newArrow = Instantiate(arrow) as GameObject;
-
+		newArrow.transform.position = fireLocation.position;
+		newArrow.transform.rotation = transform.rotation;
+		newArrow.GetComponent<Rigidbody>().velocity = transform.forward * 25f;
 	}
 }
