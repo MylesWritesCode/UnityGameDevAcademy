@@ -17,14 +17,24 @@ public class PlayerHealth : MonoBehaviour
 	private AudioSource hitAudio;
 	private ParticleSystem humanBlood;
 
+	public int CurrentHealth {
+		get { return currentHealth; }
+		set {
+			if (value < 0) {
+				currentHealth = 0;
+			}	else {
+				currentHealth = value;
+			}
+		}
+	}
+
 	void Awake()
 	{
 		Assert.IsNotNull(healthSlider);
 	}
 
 	// Use this for initialization
-	void Start () 
-	{
+	void Start () {
 		anim = GetComponent<Animator>();
 		characterController = GetComponent<CharacterController>();
 		currentHealth = startingHealth;
@@ -33,17 +43,13 @@ public class PlayerHealth : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () 
-	{
+	void Update () {
 		timer += Time.deltaTime;
 	}
 
-	void OnTriggerEnter (Collider other)
-	{
-		if (timer >= timeSinceLastHit && !GameManager.instance.GameOver)
-		{
-			if (other.tag == "Weapon")
-			{
+	void OnTriggerEnter (Collider other) {
+		if (timer >= timeSinceLastHit && !GameManager.instance.GameOver) {
+			if (other.tag == "Weapon")	{
 				humanBlood.Play();
 				takeHit();
 				timer = 0;
@@ -51,10 +57,8 @@ public class PlayerHealth : MonoBehaviour
 		}
 	}
 
-	void takeHit()
-	{
-		if (currentHealth > 0)
-		{
+	void takeHit() {
+		if (currentHealth > 0) {
 			GameManager.instance.PlayerHit(currentHealth);
 			anim.Play("Hurt");
 			currentHealth -= 10;
@@ -62,17 +66,24 @@ public class PlayerHealth : MonoBehaviour
 			hitAudio.PlayOneShot(hitAudio.clip);
 		}
 
-		if (currentHealth <= 0)
-		{
+		if (currentHealth <= 0)	{
 			killPlayer();
 		}
 	}
 
-	void killPlayer()
-	{
+	void killPlayer() {
 		GameManager.instance.PlayerHit(currentHealth);
 		anim.SetTrigger("HeroDie");
 		characterController.enabled = false;
 		hitAudio.PlayOneShot(hitAudio.clip);
+	}
+
+	public void PowerUpHealth() {
+		if (currentHealth <= 70) {
+			CurrentHealth += 30;
+		} else if (currentHealth < startingHealth) {
+			CurrentHealth = startingHealth;
+		}
+		healthSlider.value = currentHealth;
 	}
 }

@@ -9,7 +9,6 @@ public class HealthPowerUp : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
 		player = GameManager.instance.Player;
 		playerHealth = player.GetComponent<PlayerHealth>();
 
@@ -18,7 +17,6 @@ public class HealthPowerUp : MonoBehaviour {
 	void OnTriggerEnter (Collider other) {
 
 		if (other.gameObject == player) {
-
 			playerHealth.PowerUpHealth();
 			Destroy(gameObject);
 		}
