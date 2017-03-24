@@ -17,22 +17,37 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GameObject healthPowerUp;
 	[SerializeField] GameObject speedPowerUp;
 	[SerializeField] Text levelText;
-	[SerializeField] int maxPowerUps;
+	[SerializeField] int maxPowerUps = 4;
 
 	private bool gameOver = false;
 	private int currentLevel;
+	// Enemy spawn timers.
 	private float generatedSpawnTime = 1f;
 	private float currentSpawnTime = 0f;
+	// Power Up spawn timers.
+	private float powerUpSpawnTime = 5f;
+	private float currentPowerUpSpawnTime = 0f;
 	private GameObject newEnemy;
+	private GameObject newPowerUp;
+	// Counter for how many powerups have spawned.
+	private int powerUps = 0;
+
 	private List<EnemyHealth> enemies = new List<EnemyHealth>();
 	private List<EnemyHealth> killedEnemies = new List<EnemyHealth>();
 
+	// Register enemies to list.
 	public void RegisterEnemy(EnemyHealth enemy) {
 		enemies.Add(enemy);
 	}
 
-	public void KilledEnemy(EnemyHealth enemy)	{
+	// Register all killed enemies to list for counting.
+	public void KilledEnemy(EnemyHealth enemy) {
 		killedEnemies.Add(enemy);
+	}
+
+	// Add to total powerups that spawned.
+	public void RegisterPowerUp() {
+		powerUps++;
 	}
 
 	public bool GameOver {
@@ -40,7 +55,7 @@ public class GameManager : MonoBehaviour
 	}
 
 	// Public getter for other scripts to get Player gameObject.
-	public GameObject Player	{
+	public GameObject Player {
 		get { return player; }
 	}
 
@@ -63,12 +78,14 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start () {
 		StartCoroutine(spawn());
+		StartCoroutine(powerUpSpawn());
 		currentLevel = 1;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		currentSpawnTime += Time.deltaTime;
+		currentPowerUpSpawnTime += Time.deltaTime;
 	}
 
 	// Public getter for player hit to find out if the game is over or not.
@@ -82,7 +99,7 @@ public class GameManager : MonoBehaviour
 
 	IEnumerator spawn() {
 		// Check that spawn time is greater than current time.
-		if (currentSpawnTime > generatedSpawnTime)	{
+		if (currentSpawnTime > generatedSpawnTime) {
 			currentSpawnTime = 0f;
 			// If there are less enemies on screen than the current level...
 			if (enemies.Count < currentLevel)	{
@@ -120,5 +137,25 @@ public class GameManager : MonoBehaviour
 		yield return null;
 		// Start spawn routine again.
 		StartCoroutine(spawn());
+	}
+
+	// Power Up spawning coroutine.
+	IEnumerator powerUpSpawn() {
+		if (currentPowerUpSpawnTime > powerUpSpawnTime) {
+			currentPowerUpSpawnTime = 0;
+			if (powerUps < maxPowerUps) {
+				int randomNumber = Random.Range(0, powerUpSpawns.Length - 1);
+				GameObject spawnLocation = powerUpSpawns[randomNumber];
+				int randomPowerUp = Random.Range(0, 2);
+				if (randomPowerUp == 0) {
+					newPowerUp = Instantiate(healthPowerUp) as GameObject;
+				} else if (randomPowerUp == 1) {
+					newPowerUp = Instantiate(speedPowerUp) as GameObject;
+				}
+				newPowerUp.transform.position = spawnLocation.transform.position;
+			}
+		}
+		yield return null;
+		StartCoroutine(powerUpSpawn());
 	}
 }
