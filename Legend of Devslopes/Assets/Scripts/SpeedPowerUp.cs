@@ -17,7 +17,7 @@ public class SpeedPowerUp : MonoBehaviour {
 	void OnTriggerEnter (Collider other) {
 		if (other.gameObject == player) {
 			playerController.SpeedPowerUp();
-			Destroy(GameObject);
+			Destroy(gameObject);
 		}
 	}
 }

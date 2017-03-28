@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 	private Animator anim;
 	private BoxCollider[] swordColliders;
 	private GameObject fireTrail;
+	private ParticleSystem fireTrailParticles;
 
 	void Awake()
 	{
@@ -20,13 +21,15 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Use this for initialization
-	void Start () 
-	{
+	void Start () {
 		// Look inside of the GameObject and get a Character Controller.
 		characterController = GetComponent<CharacterController>();	
 		// Look inside GameObject and get Animator.
 		anim = GetComponent<Animator>();
 		swordColliders = GetComponentsInChildren<BoxCollider>();
+		// Fire trails for speed power up.
+		fireTrail = GameObject.FindWithTag("Fire") as GameObject;
+		fireTrail.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -101,11 +104,27 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	public void EndAttack()
-	{
+	public void EndAttack() {
 		foreach (var weapon in swordColliders)
 		{
 			weapon.enabled = false;
 		}
+	}
+
+	public void SpeedPowerUp() {
+		StartCoroutine(fireTrailRoutine());
+	}
+
+	IEnumerator fireTrailRoutine() {
+		fireTrail.SetActive(true);
+		moveSpeed = 10f;
+		yield return new WaitForSeconds(10f);
+		moveSpeed = 6f;
+		fireTrailParticles = fireTrail.GetComponent<ParticleSystem>();
+		var em = fireTrailParticles.emission;
+		em.enabled = false;
+		yield return new WaitForSeconds(3f);
+		em.enabled = true;
+		fireTrail.SetActive(false);
 	}
 }
