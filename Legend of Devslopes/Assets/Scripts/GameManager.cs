@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 	private float generatedSpawnTime = 1f;
 	private float currentSpawnTime = 0f;
 	// Power Up spawn timers.
-	private float powerUpSpawnTime = 5f;
+	private float powerUpSpawnTime = 60f;
 	private float currentPowerUpSpawnTime = 0f;
 	private GameObject newEnemy;
 	private GameObject newPowerUp;
