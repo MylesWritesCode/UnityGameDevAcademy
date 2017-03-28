@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 	private Vector3 currentLookTarget = Vector3.zero;
 	private Animator anim;
 	private BoxCollider[] swordColliders;
+	private GameObject fireTrail;
 
 	void Awake()
 	{
