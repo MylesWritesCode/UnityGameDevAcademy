@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyHealth : MonoBehaviour 
-{
+public class EnemyHealth : MonoBehaviour {
 	[SerializeField] private int startingHealth;
 	[SerializeField] private float timeSinceLastHit = 0.5f;
 	[SerializeField] private float disappearSpeed = 2f;
@@ -20,14 +19,12 @@ public class EnemyHealth : MonoBehaviour
 	private int currentHealth;
 	private ParticleSystem orcBlood;
 
-	public bool IsAlive
-	{ 
+	public bool IsAlive { 
 		get { return isAlive; }
 	}
 
 	// Use this for initialization
-	void Start () 
-	{
+	void Start () {
 		// Add this enemy to the list on spawn.
 		GameManager.instance.RegisterEnemy(this);
 		rigidBody = GetComponent<Rigidbody>();
@@ -41,8 +38,7 @@ public class EnemyHealth : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () 
-	{
+	void Update () {
 		timer += Time.deltaTime;
 
 		if (disappearEnemy)
@@ -51,8 +47,7 @@ public class EnemyHealth : MonoBehaviour
 		}
 	}
 
-	void OnTriggerEnter (Collider other)
-	{
+	void OnTriggerEnter (Collider other) {
 		if (timer >= timeSinceLastHit && !GameManager.instance.GameOver)
 		{
 			if (other.tag == "PlayerWeapon")
@@ -65,8 +60,7 @@ public class EnemyHealth : MonoBehaviour
 		}
 	}
 
-	void takeHit()
-	{
+	void takeHit() {
 		if (currentHealth > 0)
 		{
 			anim.Play("Hurt");
@@ -80,8 +74,7 @@ public class EnemyHealth : MonoBehaviour
 		}
 	}
 
-	void killEnemy()
-	{
+	void killEnemy() {
 		// When this enemy is killed, register on KilledEnemy list in GameManager.
 		GameManager.instance.KilledEnemy(this);
 		capsuleCollider.enabled = false;
@@ -91,8 +84,7 @@ public class EnemyHealth : MonoBehaviour
 		StartCoroutine(removeEnemy());
 	}
 
-	IEnumerator removeEnemy()
-	{
+	IEnumerator removeEnemy() {
 		yield return new WaitForSeconds(4f);
 		disappearEnemy = true;
 		yield return new WaitForSeconds(2f);
