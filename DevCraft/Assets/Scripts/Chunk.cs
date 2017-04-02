@@ -25,35 +25,14 @@ public class Chunk : MonoBehaviour {
 		mesh = GetComponent<MeshFilter>().mesh;
 		chunkCollider = GetComponent<MeshCollider>();
 		CubeTop(0, 0, 0, (byte) TextureType.rock.GetHashCode());
+		CubeNorth(0, 0, 0, (byte) TextureType.rock.GetHashCode());
+		CubeEast(0, 0, 0, (byte) TextureType.rock.GetHashCode());
+		CubeSouth(0, 0, 0, (byte) TextureType.rock.GetHashCode());
+		CubeWest(0, 0, 0, (byte) TextureType.rock.GetHashCode());
+		CubeBottom(0, 0, 0, (byte) TextureType.rock.GetHashCode());
 		UpdateMesh();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-	void CubeTop(int x, int y, int z, byte block) {
-		newVertices.Add(new Vector3(x, y, z + 1));
-		newVertices.Add(new Vector3(x + 1, y, z + 1));
-		newVertices.Add(new Vector3(x + 1, y, z));
-		newVertices.Add(new Vector3(x, y, z));
-
-		newTriangles.Add(faceCount * 4);     // Vertex 1
-		newTriangles.Add(faceCount * 4 + 1); // Vertex 2
-		newTriangles.Add(faceCount * 4 + 2); // Vertex 3
-		newTriangles.Add(faceCount * 4);     // Vertex 1
-		newTriangles.Add(faceCount * 4 + 2); // Vertex 3
-		newTriangles.Add(faceCount * 4 + 3); // Vertex 4
-
-		Vector2 texturePos = rock;
-
-		newUV.Add(new Vector2(textureWidth * texturePos.x + textureWidth, textureWidth * texturePos.y));
-		newUV.Add(new Vector2(textureWidth * texturePos.x + textureWidth, textureWidth * texturePos.y + textureWidth));
-		newUV.Add(new Vector2(textureWidth * texturePos.x, textureWidth * texturePos.y + textureWidth));
-		newUV.Add(new Vector2(textureWidth * texturePos.x, textureWidth * texturePos.y));
-	}
-
 	void UpdateMesh() {
 		mesh.Clear();
 		mesh.vertices = newVertices.ToArray();
@@ -68,5 +47,87 @@ public class Chunk : MonoBehaviour {
 		newUV.Clear();
 		newTriangles.Clear();
 		faceCount = 0;
+	}
+
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+	void CubeTop(int x, int y, int z, byte block) {
+		newVertices.Add(new Vector3(x, y, z + 1));
+		newVertices.Add(new Vector3(x + 1, y, z + 1));
+		newVertices.Add(new Vector3(x + 1, y, z));
+		newVertices.Add(new Vector3(x, y, z));
+
+		Vector2 texturePos = rock;
+		Cube(texturePos);
+	}
+
+	void CubeNorth(int x, int y, int z, byte block) {
+		newVertices.Add(new Vector3(x + 1, y - 1, z + 1));
+		newVertices.Add(new Vector3(x + 1, y, z + 1));
+		newVertices.Add(new Vector3(x, y, z + 1));
+		newVertices.Add(new Vector3(x, y - 1, z + 1));
+
+		Vector2 texturePos = rock;
+		Cube(texturePos);
+	}
+	
+	void CubeEast(int x, int y, int z, byte block) {
+		newVertices.Add(new Vector3(x + 1, y - 1, z));
+		newVertices.Add(new Vector3(x + 1, y, z));
+		newVertices.Add(new Vector3(x + 1, y, z + 1));
+		newVertices.Add(new Vector3(x + 1, y - 1, z + 1));
+
+		Vector2 texturePos = rock;
+		Cube(texturePos);
+	}
+
+	void CubeSouth(int x, int y, int z, byte block) {
+		newVertices.Add(new Vector3(x, y - 1, z));
+		newVertices.Add(new Vector3(x, y, z));
+		newVertices.Add(new Vector3(x + 1, y, z));
+		newVertices.Add(new Vector3(x + 1, y - 1, z));
+
+		Vector2 texturePos = rock;
+		Cube(texturePos);
+	}
+
+	void CubeWest(int x, int y, int z, byte block) {
+		newVertices.Add(new Vector3(x, y - 1, z + 1));
+		newVertices.Add(new Vector3(x, y, z + 1));
+		newVertices.Add(new Vector3(x, y, z));
+		newVertices.Add(new Vector3(x, y - 1, z));
+
+		Vector2 texturePos = rock;
+		Cube(texturePos);
+	}
+
+	void CubeBottom(int x, int y, int z, byte block) {
+		newVertices.Add(new Vector3(x, y - 1, z));
+		newVertices.Add(new Vector3(x + 1, y - 1, z));
+		newVertices.Add(new Vector3(x + 1, y - 1, z + 1));
+		newVertices.Add(new Vector3(x, y - 1, z + 1));
+
+		Vector2 texturePos = rock;
+		Cube(texturePos);
+	}
+
+	void Cube (Vector2 texturePos) {
+		
+		newTriangles.Add(faceCount * 4);     // Vertex 1
+		newTriangles.Add(faceCount * 4 + 1); // Vertex 2
+		newTriangles.Add(faceCount * 4 + 2); // Vertex 3
+		newTriangles.Add(faceCount * 4);     // Vertex 1
+		newTriangles.Add(faceCount * 4 + 2); // Vertex 3
+		newTriangles.Add(faceCount * 4 + 3); // Vertex 4
+		
+		newUV.Add(new Vector2(textureWidth * texturePos.x + textureWidth, textureWidth * texturePos.y));
+		newUV.Add(new Vector2(textureWidth * texturePos.x + textureWidth, textureWidth * texturePos.y + textureWidth));
+		newUV.Add(new Vector2(textureWidth * texturePos.x, textureWidth * texturePos.y + textureWidth));
+		newUV.Add(new Vector2(textureWidth * texturePos.x, textureWidth * texturePos.y));
+
+		faceCount++;
 	}
 }
