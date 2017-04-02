@@ -7,6 +7,10 @@ public enum TextureType {
 
 public class Chunk : MonoBehaviour {
 
+	[SerializeField] GameObject worldGO;
+	[SerializeField] int chunkSize = 16;
+
+	private World world; // Just to access the world script for meow.
 	private List<Vector3> newVertices = new List<Vector3>();
 	private List<int> newTriangles = new List<int>();
 	private List<Vector2> newUV = new List<Vector2>();
@@ -22,14 +26,50 @@ public class Chunk : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		world = worldGO.GetComponent("World") as World;
 		mesh = GetComponent<MeshFilter>().mesh;
 		chunkCollider = GetComponent<MeshCollider>();
-		CubeTop(0, 0, 0, (byte) TextureType.rock.GetHashCode());
-		CubeNorth(0, 0, 0, (byte) TextureType.rock.GetHashCode());
-		CubeEast(0, 0, 0, (byte) TextureType.rock.GetHashCode());
-		CubeSouth(0, 0, 0, (byte) TextureType.rock.GetHashCode());
-		CubeWest(0, 0, 0, (byte) TextureType.rock.GetHashCode());
-		CubeBottom(0, 0, 0, (byte) TextureType.rock.GetHashCode());
+		GenerateMesh();
+	}
+
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+	void GenerateMesh() {
+		for (int x = 0; x < chunkSize; x++) {
+			for (int y = 0; y < chunkSize; y++) {
+				for (int z = 0; z < chunkSize; z++) {
+					if (world.Block(x, y, z) != (byte) TextureType.air.GetHashCode()) {
+						// Block above is air.
+						if (world.Block(x, y + 1, z) == (byte) TextureType.air.GetHashCode()) {
+							CubeTop(x, y, z, world.Block(x, y, z));
+						}
+						// Block below is air.
+						if (world.Block(x, y - 1, z) == (byte) TextureType.air.GetHashCode()) {
+							CubeBottom(x, y, z, world.Block(x, y, z));
+						}
+						// Block to the east is air.
+						if (world.Block(x + 1, y, z) == (byte) TextureType.air.GetHashCode()) {
+							CubeEast(x, y, z, world.Block(x, y, z));
+						}
+						// Block to the west is air.
+						if (world.Block(x - 1, y, z) == (byte) TextureType.air.GetHashCode()) {
+							CubeWest(x, y, z, world.Block(x, y, z));
+						}
+						// Block to the north is air.
+						if (world.Block(x, y, z + 1) == (byte) TextureType.air.GetHashCode()) {
+							CubeNorth(x, y, z, world.Block(x, y, z));
+						}
+						// Block to the south is air.
+						if (world.Block(x, y, z - 1) == (byte) TextureType.air.GetHashCode()) {
+							CubeSouth(x, y, z, world.Block(x, y, z));
+						}
+					}
+				}
+			}
+		}
 		UpdateMesh();
 	}
 	
@@ -47,11 +87,6 @@ public class Chunk : MonoBehaviour {
 		newUV.Clear();
 		newTriangles.Clear();
 		faceCount = 0;
-	}
-
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	void CubeTop(int x, int y, int z, byte block) {
