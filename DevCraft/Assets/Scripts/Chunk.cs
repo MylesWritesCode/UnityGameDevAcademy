@@ -41,7 +41,7 @@ public class Chunk : MonoBehaviour {
 
 	public int ChunkY {
 		get { return chunkY; }
-		set { chunkZ = value; }
+		set { chunkY = value; }
 	}
 
 	public int ChunkZ {

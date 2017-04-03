@@ -1,12 +1,12 @@
-﻿using UnityEngine;
-using Noise;
+﻿using Noise;
+using UnityEngine;
 
 public class World : MonoBehaviour {
 
 	[SerializeField] GameObject chunk;
-	[SerializeField] int worldX = 16;
-	[SerializeField] int worldY = 16;
-	[SerializeField] int worldZ = 16;
+	[SerializeField] int worldX;
+	[SerializeField] int worldY;
+	[SerializeField] int worldZ;
 	[SerializeField] int chunkSize = 16;
 
 	private byte[,,] worldData;
