@@ -7,10 +7,13 @@ public enum TextureType {
 
 public class Chunk : MonoBehaviour {
 
-	[SerializeField] GameObject worldGO;
 
 	private World world; // Just to access the world script for meow.
+	private GameObject worldGO;
 	private int chunkSize = 16;
+	private int chunkX;
+	private int chunkY;
+	private int chunkZ;
 	private List<Vector3> newVertices = new List<Vector3>();
 	private List<int> newTriangles = new List<int>();
 	private List<Vector2> newUV = new List<Vector2>();
@@ -23,6 +26,33 @@ public class Chunk : MonoBehaviour {
 	private Vector2 grassTop = new Vector2(1, 11);
 	private Vector2 grassSide = new Vector2(0, 10);
 	private Vector2 rock = new Vector2(7, 8);
+
+	// Getters and Setters
+	// Because data encapsulation is very important.
+	public int ChunkSize {
+		get { return chunkSize; }
+		set { chunkSize = value; }
+	}
+
+	public int ChunkX {
+		get { return chunkX; }
+		set { chunkX = value; }
+	}
+
+	public int ChunkY {
+		get { return chunkY; }
+		set { chunkZ = value; }
+	}
+
+	public int ChunkZ {
+		get { return chunkZ; }
+		set { chunkZ = value; }
+	}
+
+	public GameObject WorldGO {
+		get { return worldGO; }
+		set { worldGO = value; }
+	}
 
 	// Use this for initialization
 	void Start () {
