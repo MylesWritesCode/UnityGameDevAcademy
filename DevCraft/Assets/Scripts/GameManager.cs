@@ -23,5 +23,15 @@ public class GameManager : Singleton<GameManager> {
 		set { isBuilding = value; }
 	}
 
-	
+	public void JumpBtnPressed() {
+		IsJumping = true;
+	}
+
+	public void PunchBtnPressed() {
+		IsPunching = true;
+	}
+
+	public void BuildBtnPressed() {
+		IsBuilding = true;
+	}
 }
