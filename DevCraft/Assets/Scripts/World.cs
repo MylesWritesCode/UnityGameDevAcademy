@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class World : MonoBehaviour {
 
@@ -40,7 +38,7 @@ public class World : MonoBehaviour {
 								chunk, 
 								new Vector3(x * chunkSize, y * chunkSize, z * chunkSize), 
 								new Quaternion(0, 0, 0, 0)) as GameObject;
-								
+
 					chunks[x, y, z] = newChunk.GetComponent("Chunk") as Chunk;
 					chunks[x, y, z].WorldGO = gameObject;
 					chunks[x, y, z].ChunkSize = chunkSize;
