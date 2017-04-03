@@ -195,4 +195,8 @@ public class Chunk : MonoBehaviour {
 
 		faceCount++;
 	}
+
+	byte Block(int x, int y, int z) {
+		return world.Block(x + chunkX, y + chunkY, z + chunkZ);
+	}
 }
