@@ -44,8 +44,8 @@ public class World : MonoBehaviour {
 				for (int z = 0; z < chunks.GetLength(2); z++) {
 					GameObject newChunk = 
 							Instantiate(
-								chunk, 
-								new Vector3(x * chunkSize, y * chunkSize, z * chunkSize), 
+								chunk,
+								new Vector3(x * chunkSize, y * chunkSize, z * chunkSize),
 								new Quaternion(0, 0, 0, 0)) as GameObject;
 
 					chunks[x, y, z] = newChunk.GetComponent("Chunk") as Chunk;
