@@ -8,9 +8,9 @@ public enum TextureType {
 public class Chunk : MonoBehaviour {
 
 	[SerializeField] GameObject worldGO;
-	[SerializeField] int chunkSize = 16;
 
 	private World world; // Just to access the world script for meow.
+	private int chunkSize = 16;
 	private List<Vector3> newVertices = new List<Vector3>();
 	private List<int> newTriangles = new List<int>();
 	private List<Vector2> newUV = new List<Vector2>();
