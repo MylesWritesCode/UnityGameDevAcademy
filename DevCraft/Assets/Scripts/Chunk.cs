@@ -10,17 +10,17 @@ public class Chunk : MonoBehaviour {
 
 	private World world; // Just to access the world script for meow.
 	private GameObject worldGO;
-	private int chunkSize = 16;
+	private int chunkSize;
 	private int chunkX;
 	private int chunkY;
 	private int chunkZ;
-	private List<Vector3> newVertices = new List<Vector3>();
-	private List<int> newTriangles = new List<int>();
-	private List<Vector2> newUV = new List<Vector2>();
 	private Mesh mesh;
 	private MeshCollider chunkCollider;
 	private float textureWidth = 0.083f;
 	private int faceCount;
+	private List<Vector3> newVertices = new List<Vector3>();
+	private List<int> newTriangles = new List<int>();
+	private List<Vector2> newUV = new List<Vector2>();
 
 	// Textures
 	private Vector2 grassTop = new Vector2(1, 11);
@@ -125,7 +125,14 @@ public class Chunk : MonoBehaviour {
 		newVertices.Add(new Vector3(x + 1, y, z));
 		newVertices.Add(new Vector3(x, y, z));
 
-		Vector2 texturePos = rock;
+		Vector2 texturePos = new Vector2(0, 0);
+		if (block == (byte) TextureType.rock.GetHashCode()) {
+			texturePos = rock;
+		}
+		else if (block == (byte) TextureType.grass.GetHashCode()) {
+			texturePos = grassTop;
+		}
+
 		Cube(texturePos);
 	}
 
@@ -135,7 +142,7 @@ public class Chunk : MonoBehaviour {
 		newVertices.Add(new Vector3(x, y, z + 1));
 		newVertices.Add(new Vector3(x, y - 1, z + 1));
 
-		Vector2 texturePos = rock;
+		Vector2 texturePos = SetSideTextures(x, y, z, block);
 		Cube(texturePos);
 	}
 	
@@ -145,7 +152,7 @@ public class Chunk : MonoBehaviour {
 		newVertices.Add(new Vector3(x + 1, y, z + 1));
 		newVertices.Add(new Vector3(x + 1, y - 1, z + 1));
 
-		Vector2 texturePos = rock;
+		Vector2 texturePos = SetSideTextures(x, y, z, block);
 		Cube(texturePos);
 	}
 
@@ -155,7 +162,7 @@ public class Chunk : MonoBehaviour {
 		newVertices.Add(new Vector3(x + 1, y, z));
 		newVertices.Add(new Vector3(x + 1, y - 1, z));
 
-		Vector2 texturePos = rock;
+		Vector2 texturePos = SetSideTextures(x, y, z, block);
 		Cube(texturePos);
 	}
 
@@ -165,7 +172,7 @@ public class Chunk : MonoBehaviour {
 		newVertices.Add(new Vector3(x, y, z));
 		newVertices.Add(new Vector3(x, y - 1, z));
 
-		Vector2 texturePos = rock;
+		Vector2 texturePos = SetSideTextures(x, y, z, block);
 		Cube(texturePos);
 	}
 
@@ -175,8 +182,19 @@ public class Chunk : MonoBehaviour {
 		newVertices.Add(new Vector3(x + 1, y - 1, z + 1));
 		newVertices.Add(new Vector3(x, y - 1, z + 1));
 
-		Vector2 texturePos = rock;
+		Vector2 texturePos = SetSideTextures(x, y, z, block);
 		Cube(texturePos);
+	}
+
+	public Vector2 SetSideTextures(int x, int y, int z, byte block) {
+		Vector2 texturePos = new Vector2(0, 0);
+		if (block == (byte) TextureType.rock.GetHashCode()) {
+			texturePos = rock;
+		}
+		else if (block == (byte) TextureType.grass.GetHashCode()) {
+			texturePos = grassSide;
+		}
+		return texturePos;
 	}
 
 	void Cube (Vector2 texturePos) {

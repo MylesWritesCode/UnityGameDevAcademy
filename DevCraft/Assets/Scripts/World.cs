@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Noise;
 
 public class World : MonoBehaviour {
 
@@ -15,11 +16,19 @@ public class World : MonoBehaviour {
 	void Start () {
 		worldData = new byte[worldX, worldY, worldZ];
 
-		// For each x
+		// For each x.
 		for (int x = 0; x < worldX; x++) {
-			for (int y = 0; y < worldY; y++) {
-				for (int z = 0; z < worldZ; z++) {
-					if (y <= 8) {
+			// Then each z in the x.
+			for (int z = 0; z < worldZ; z++) {
+				int rock = PerlinNoise(x, 0, z, 10f, 3f, 1.2f);
+				rock += PerlinNoise(x, 200, z, 20f, 8f, 0f) + 10;
+				int grass = PerlinNoise(x, 100, z, 50f, 30f, 0f) + 1;
+				// For each y in the z in an x.
+				for (int y = 0; y < worldY; y++) {
+					if (y <= rock) {
+						worldData[x, y, z] = (byte) TextureType.grass.GetHashCode();
+					}
+					else if (y <= grass) {
 						worldData[x, y, z] = (byte) TextureType.rock.GetHashCode();
 					}
 				}
@@ -53,6 +62,18 @@ public class World : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	public int PerlinNoise(int x, int y, int z, float scale, float height, float power) {
+		// From Noise.cs
+		float perlinValue = Noise.Noise.GetNoise((double) x / scale, (double) y / scale, (double) z / scale);
+		perlinValue *= height;
+
+		if (power != 0) {
+			perlinValue = Mathf.Pow(perlinValue, power);
+		}
+
+		return (int) perlinValue;
 	}
 
 	public byte Block (int x, int y, int z) {
