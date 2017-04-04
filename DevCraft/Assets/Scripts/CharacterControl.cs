@@ -36,11 +36,13 @@ public class CharacterControl : MonoBehaviour {
 
 		if (GameManager.Instance.IsPunching) {
 			anim.SetTrigger("Punch");
+			ModifyTerrain.Instance.DestroyBlock(10f, (byte) TextureType.air.GetHashCode());
 			GameManager.Instance.IsPunching = false;
 		}
 
 		if (GameManager.Instance.IsBuilding) {
 			anim.SetTrigger("Punch");
+			ModifyTerrain.Instance.AddBlock(10f, (byte) TextureType.rock.GetHashCode());
 			GameManager.Instance.IsBuilding = false;
 		}
 	}

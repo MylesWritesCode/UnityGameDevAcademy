@@ -18,6 +18,7 @@ public class Chunk : MonoBehaviour {
 	private MeshCollider chunkCollider;
 	private float textureWidth = 0.083f;
 	private int faceCount;
+	private bool isUpdate = false;
 	private List<Vector3> newVertices = new List<Vector3>();
 	private List<int> newTriangles = new List<int>();
 	private List<Vector2> newUV = new List<Vector2>();
@@ -54,6 +55,11 @@ public class Chunk : MonoBehaviour {
 		set { worldGO = value; }
 	}
 
+	public bool IsUpdate {
+		get { return isUpdate; }
+		set { isUpdate = value; }
+	}
+
 	// Use this for initialization
 	void Start () {
 		world = worldGO.GetComponent("World") as World;
@@ -62,12 +68,14 @@ public class Chunk : MonoBehaviour {
 		GenerateMesh();
 	}
 
-	// Update is called once per frame
-	void Update () {
-		
+	void LateUpdate () {
+		if (IsUpdate) {
+			GenerateMesh();
+			IsUpdate = false;
+		}
 	}
 
-	void GenerateMesh() {
+	public void GenerateMesh() {
 		for (int x = 0; x < chunkSize; x++) {
 			for (int y = 0; y < chunkSize; y++) {
 				for (int z = 0; z < chunkSize; z++) {
