@@ -7,10 +7,12 @@ public class CharacterControl : MonoBehaviour {
 	[SerializeField] int jumpHeight;
 
 	private Animator anim;
+	private AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator>();
+		audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -31,18 +33,21 @@ public class CharacterControl : MonoBehaviour {
 
 		if (GameManager.Instance.IsJumping) {
 			anim.SetTrigger("Jump");
+			audioSource.PlayOneShot(AudioManager.Instance.Jump);
 			transform.Translate(Vector3.up * jumpHeight * Time.deltaTime, Space.World);
 			GameManager.Instance.IsJumping = false;
 		}
 
 		if (GameManager.Instance.IsPunching) {
 			anim.SetTrigger("Punch");
+			audioSource.PlayOneShot(AudioManager.Instance.Hit);
 			ModifyTerrain.Instance.DestroyBlock(10f, (byte) TextureType.air.GetHashCode());
 			GameManager.Instance.IsPunching = false;
 		}
 
 		if (GameManager.Instance.IsBuilding) {
 			anim.SetTrigger("Punch");
+			audioSource.PlayOneShot(AudioManager.Instance.Build);
 			ModifyTerrain.Instance.AddBlock(10f, (byte) TextureType.rock.GetHashCode());
 			GameManager.Instance.IsBuilding = false;
 		}
