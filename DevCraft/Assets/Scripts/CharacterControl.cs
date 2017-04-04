@@ -6,12 +6,10 @@ public class CharacterControl : MonoBehaviour {
 	[SerializeField] int moveSpeed;
 	[SerializeField] int jumpHeight;
 
-	private Rigidbody charRigidbody;
 	private Animator anim;
 
 	// Use this for initialization
 	void Start () {
-		charRigidbody = GetComponent<Rigidbody>();
 		anim = GetComponent<Animator>();
 	}
 	
@@ -20,13 +18,16 @@ public class CharacterControl : MonoBehaviour {
 		Vector3 moveChar = new Vector3( CrossPlatformInputManager.GetAxis("Horizontal"), 
 																		0, 
 																		CrossPlatformInputManager.GetAxis("Vertical") );
-		transform.position += moveChar * Time.deltaTime * moveSpeed;
-
-		if (charRigidbody.velocity.magnitude == 0) {
-			anim.SetBool("isWalking", false);
-		} else {
+		
+		if (moveChar != Vector3.zero) {
 			anim.SetBool("isWalking", true);
+			Quaternion targetRotation = Quaternion.LookRotation(moveChar, Vector3.up);
+			transform.rotation = targetRotation;
+		} else {
+			anim.SetBool("isWalking", false);
 		}
+
+		transform.position += moveChar * Time.deltaTime * moveSpeed;
 
 		if (GameManager.Instance.IsJumping) {
 			anim.SetTrigger("Jump");
