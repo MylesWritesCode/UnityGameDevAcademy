@@ -23,7 +23,7 @@ public class AnimationManager : MonoBehaviour {
 		}
 	}
 
-	void DestroyCamera(GameObject camera)	{
+	public void DestroyCamera(GameObject camera)	{
 		// Remove the first camera from the list.
 		cameras.RemoveAt(0);
 		Destroy(camera);
